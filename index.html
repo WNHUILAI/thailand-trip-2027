@@ -10,6 +10,10 @@
     <meta name="apple-mobile-web-app-title" content="曼谷手冊">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/201/201623.png">
 
+    <!-- Firebase SDK (Compat 版本) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -674,28 +678,51 @@
         let editingSpotIndex = null;
         let todoSortOrder = 'asc';
 
-        function loadSavedData() {
-            const saved = localStorage.getItem('thailand_travel_2027_v10');
-            if (saved) {
-                try { 
-                    const parsed = JSON.parse(saved);
-                    if (parsed && parsed.days && parsed.days.length === 6) {
-                        travelData = parsed;
-                    } else {
-                        travelData = JSON.parse(JSON.stringify(defaultTravelData));
-                        saveData();
-                    }
-                } catch(e) {
-                    travelData = JSON.parse(JSON.stringify(defaultTravelData));
+        // 1. firebaseConfig
+        const firebaseConfig = {
+          apiKey: "AIzaSyBTQ9I534SgPmf2oEYA5dTitAzMeL5Qhmg",
+          authDomain: "thailand-travel-2027.firebaseapp.com",
+          projectId: "thailand-travel-2027",
+          storageBucket: "thailand-travel-2027.firebasestorage.app",
+          messagingSenderId: "611965645820",
+          appId: "1:611965645820:web:15ab95ea40aeb06df9b879"
+        };
+
+        // 2. 初始化 Firebase & Firestore
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const docRef = db.collection("travel").doc("2027_bangkok");
+
+        // 3. 雲端即時監聽（手機、電腦自動雙向同步）
+        function listenCloudData() {
+            docRef.onSnapshot((doc) => {
+                if (doc.exists) {
+                    travelData = doc.data();
+                    renderAllUI();
+                } else {
                     saveData();
                 }
-            } else {
-                saveData();
-            }
+            }, (error) => {
+                console.error("雲端連線失敗: ", error);
+            });
         }
 
+        // 4. 儲存至 Firebase 雲端
         function saveData() {
-            localStorage.setItem('thailand_travel_2027_v10', JSON.stringify(travelData));
+            docRef.set(travelData).catch((error) => {
+                console.error("雲端儲存失敗: ", error);
+            });
+        }
+
+        // 5. 統一重新渲染 UI
+        function renderAllUI() {
+            renderDayButtons();
+            renderItinerary();
+            renderTodoList();
+            renderPackingList();
+            renderSouvenirs();
+            renderFlightExtraUI();
+            renderThaiPhrases();
         }
 
         function resetDataPrompt() {
@@ -1417,15 +1444,9 @@
         }
 
         window.onload = function() {
-            loadSavedData();
-            renderDayButtons();
-            renderItinerary();
-            renderTodoList();
-            renderPackingList();
-            renderSouvenirs();
-            renderFlightExtraUI();
-            renderThaiPhrases();
+                    listenCloudData();
         };
+
     </script>
 </body>
 </html>
