@@ -51,13 +51,16 @@
             background-opacity: 0.05;
         }
 
-        /* 無背景框的手繪插圖容器 */
+        /* 純手繪插圖容器（無外框、去背景、放大的插圖樣式） */
         .hand-drawn-icon {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-end;
             flex-shrink: 0;
-            padding-right: 4px;
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+            box-shadow: none !important;
         }
     </style>
 </head>
@@ -134,24 +137,24 @@
 
         <!-- TAB 1: 每日行程 & 專屬地圖 -->
         <section id="sec-itinerary" class="tab-content space-y-4">
-            <div class="bg-teal-50 border border-teal-200 rounded-2xl p-4 flex items-center justify-between shadow-sm">
+            <div class="bg-teal-50 border border-teal-200 rounded-2xl p-4 flex items-center justify-between shadow-sm overflow-hidden relative">
                 <div>
                     <h2 class="font-bold text-teal-900 text-base flex items-center gap-2">
                         <i class="fa-solid fa-map-location-dot text-teal-600"></i> 每日靈魂探索旅程
                     </h2>
                     <p class="text-xs text-teal-700 mt-1">細心規劃每一刻，隨心享受曼谷的繁華與悠閒</p>
                 </div>
-                <!-- 1:1 還原手繪小象 (無背景圓框) -->
+                <!-- 還原與圖片完全一致的大尺寸手繪小象 (無邊框與背景) -->
                 <div class="hand-drawn-icon">
-                    <svg class="w-14 h-12 text-teal-600" viewBox="0 0 80 60" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <!-- 象鼻彎曲向左 -->
-                        <path d="M 16 38 C 10 38, 8 30, 14 26 C 20 22, 22 34, 28 34" />
-                        <!-- 頭部與背部圓弧線條 -->
-                        <path d="M 28 34 C 28 18, 48 12, 60 26 C 68 34, 66 48, 62 52" />
-                        <!-- 大耳朵 -->
-                        <path d="M 40 20 C 32 20, 28 30, 36 38 C 42 44, 46 36, 42 26 Z" />
-                        <!-- 後腳與前腳簡單立柱線 -->
-                        <path d="M 52 46 L 52 54 M 58 48 L 58 54 M 28 42 L 28 54" />
+                    <svg class="w-20 h-16 text-teal-600" viewBox="0 0 100 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- 象鼻曲線 -->
+                        <path d="M 22 46 C 14 46, 12 36, 20 32 C 28 28, 30 42, 38 42" />
+                        <!-- 頭背部與身體外廓 -->
+                        <path d="M 38 42 C 38 22, 62 14, 78 32 C 88 42, 85 60, 80 66" />
+                        <!-- 耳朵 -->
+                        <path d="M 52 24 C 42 24, 36 38, 46 48 C 54 56, 60 46, 54 32 Z" />
+                        <!-- 腳步支撐線 -->
+                        <path d="M 66 58 L 66 68 M 74 60 L 74 68 M 38 52 L 38 68" />
                     </svg>
                 </div>
             </div>
@@ -230,16 +233,16 @@
 
         <!-- TAB 2: 待辦事項提醒 -->
         <section id="sec-todo" class="tab-content hidden space-y-4">
-            <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-center justify-between shadow-sm">
+            <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-center justify-between shadow-sm overflow-hidden">
                 <div>
                     <h2 class="font-bold text-amber-900 text-base flex items-center gap-2">
                         <i class="fa-solid fa-clipboard-list text-amber-600"></i> 行前與旅程待辦清單
                     </h2>
                     <p class="text-xs text-amber-700 mt-1">設定完成日期，讓行前準備井然有序不慌亂</p>
                 </div>
-                <!-- 手繪風格嘟嘟車 (無背景圓框) -->
+                <!-- 放大且無邊框的嘟嘟車插圖 -->
                 <div class="hand-drawn-icon">
-                    <svg class="w-12 h-10 text-amber-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="w-20 h-16 text-amber-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M 14 36 L 22 20 L 42 20 L 50 36 Z" />
                         <path d="M 12 36 H 52 V 44 H 12 Z" />
                         <circle cx="20" cy="46" r="4.5" />
@@ -274,16 +277,16 @@
 
         <!-- TAB 3: 行李 Check List -->
         <section id="sec-packing" class="tab-content hidden space-y-4">
-            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-center justify-between shadow-sm">
+            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-center justify-between shadow-sm overflow-hidden">
                 <div>
                     <h2 class="font-bold text-emerald-900 text-base flex items-center gap-2">
                         <i class="fa-solid fa-suitcase text-emerald-600"></i> 行李打包 Check List
                     </h2>
                     <p class="text-xs text-emerald-700 mt-1">分類檢查物品，輕鬆享受無憂旅程</p>
                 </div>
-                <!-- 手繪風格行李箱與椰子樹 (無背景圓框) -->
+                <!-- 放大且無邊框的行李箱插圖 -->
                 <div class="hand-drawn-icon">
-                    <svg class="w-12 h-10 text-emerald-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="w-20 h-16 text-emerald-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="14" y="24" width="28" height="28" rx="4" />
                         <path d="M 22 24 V 16 C 22 14, 34 14, 34 16 V 24" />
                         <line x1="22" y1="24" x2="22" y2="52" />
@@ -307,16 +310,16 @@
 
         <!-- TAB 4: 必買伴手禮 -->
         <section id="sec-souvenirs" class="tab-content hidden space-y-4">
-            <div class="bg-rose-50 border border-rose-200 rounded-2xl p-4 flex items-center justify-between shadow-sm">
+            <div class="bg-rose-50 border border-rose-200 rounded-2xl p-4 flex items-center justify-between shadow-sm overflow-hidden">
                 <div>
                     <h2 class="font-bold text-rose-900 text-base flex items-center gap-2">
                         <i class="fa-solid fa-gift text-rose-600"></i> 曼谷必買伴手禮與零食清單
                     </h2>
                     <p class="text-xs text-rose-700 mt-1">超市大採買指引，親友禮品一網打盡</p>
                 </div>
-                <!-- 手繪風格泰奶 (無背景圓框) -->
+                <!-- 放大且無邊框的泰奶插圖 -->
                 <div class="hand-drawn-icon">
-                    <svg class="w-12 h-10 text-rose-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="w-20 h-16 text-rose-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M 20 22 L 24 50 C 24 53, 36 53, 36 50 L 40 22 Z" />
                         <path d="M 18 22 H 42" />
                         <path d="M 30 22 L 36 10" />
@@ -338,16 +341,16 @@
 
         <!-- TAB 5: 攻略與實用泰文 -->
         <section id="sec-notice" class="tab-content hidden space-y-6">
-            <div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-4 flex items-center justify-between shadow-sm">
+            <div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-4 flex items-center justify-between shadow-sm overflow-hidden">
                 <div>
                     <h2 class="font-bold text-indigo-900 text-base flex items-center gap-2">
                         <i class="fa-solid fa-comments text-indigo-600"></i> 旅遊攻略 & 實用溝通泰文
                     </h2>
                     <p class="text-xs text-indigo-700 mt-1">隨點隨發音，溝通無障礙，輕鬆走跳曼谷</p>
                 </div>
-                <!-- 手繪風格泰國廟宇頂造型 (無背景圓框) -->
+                <!-- 放大且無邊框的泰國廟宇插圖 -->
                 <div class="hand-drawn-icon">
-                    <svg class="w-12 h-10 text-indigo-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="w-20 h-16 text-indigo-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M 32 10 L 38 24 H 26 Z" />
                         <path d="M 22 24 L 32 14 L 42 24" />
                         <path d="M 20 24 H 44 V 50 H 20 Z" />
