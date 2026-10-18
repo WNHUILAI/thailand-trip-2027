@@ -51,22 +51,13 @@
             background-opacity: 0.05;
         }
 
-        /* 右側紅框手繪插圖容器樣式 */
-        .hand-drawn-badge {
-            width: 58px;
-            height: 58px;
+        /* 無背景框的手繪插圖容器 */
+        .hand-drawn-icon {
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(4px);
-            box-shadow: 0 2px 10px rgba(13, 148, 136, 0.08);
             flex-shrink: 0;
-            transition: transform 0.2s ease-in-out;
-        }
-        .hand-drawn-badge:hover {
-            transform: scale(1.05) rotate(3deg);
+            padding-right: 4px;
         }
     </style>
 </head>
@@ -150,14 +141,17 @@
                     </h2>
                     <p class="text-xs text-teal-700 mt-1">細心規劃每一刻，隨心享受曼谷的繁華與悠閒</p>
                 </div>
-                <!-- 泰國手繪插圖：吉祥物泰國大象 (右側紅框位置) -->
-                <div class="hand-drawn-badge border border-teal-300">
-                    <svg class="w-9 h-9 text-teal-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M 18 42 C 18 30, 24 22, 38 22 C 50 22, 54 28, 54 36 C 54 44, 48 46, 42 46" />
-                        <path d="M 42 46 C 38 46, 36 50, 38 54 C 40 56, 44 54, 42 48" />
-                        <circle cx="46" cy="30" r="1.8" fill="currentColor" />
-                        <path d="M 22 42 L 22 52 M 32 42 L 32 52 M 48 44 L 48 52" />
-                        <path d="M 26 26 C 20 26, 14 32, 14 40 C 14 44, 18 44, 22 42" />
+                <!-- 1:1 還原手繪小象 (無背景圓框) -->
+                <div class="hand-drawn-icon">
+                    <svg class="w-14 h-12 text-teal-600" viewBox="0 0 80 60" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- 象鼻彎曲向左 -->
+                        <path d="M 16 38 C 10 38, 8 30, 14 26 C 20 22, 22 34, 28 34" />
+                        <!-- 頭部與背部圓弧線條 -->
+                        <path d="M 28 34 C 28 18, 48 12, 60 26 C 68 34, 66 48, 62 52" />
+                        <!-- 大耳朵 -->
+                        <path d="M 40 20 C 32 20, 28 30, 36 38 C 42 44, 46 36, 42 26 Z" />
+                        <!-- 後腳與前腳簡單立柱線 -->
+                        <path d="M 52 46 L 52 54 M 58 48 L 58 54 M 28 42 L 28 54" />
                     </svg>
                 </div>
             </div>
@@ -243,15 +237,14 @@
                     </h2>
                     <p class="text-xs text-amber-700 mt-1">設定完成日期，讓行前準備井然有序不慌亂</p>
                 </div>
-                <!-- 泰國手繪插圖：經典手繪嘟嘟車 (Tuk-Tuk) -->
-                <div class="hand-drawn-badge border border-amber-300">
-                    <svg class="w-9 h-9 text-amber-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <!-- 手繪風格嘟嘟車 (無背景圓框) -->
+                <div class="hand-drawn-icon">
+                    <svg class="w-12 h-10 text-amber-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M 14 36 L 22 20 L 42 20 L 50 36 Z" />
                         <path d="M 12 36 H 52 V 44 H 12 Z" />
-                        <circle cx="20" cy="46" r="5" />
-                        <circle cx="44" cy="46" r="5" />
+                        <circle cx="20" cy="46" r="4.5" />
+                        <circle cx="44" cy="46" r="4.5" />
                         <path d="M 28 20 V 36 M 38 20 V 36" />
-                        <path d="M 52 38 H 56" />
                     </svg>
                 </div>
             </div>
@@ -288,16 +281,15 @@
                     </h2>
                     <p class="text-xs text-emerald-700 mt-1">分類檢查物品，輕鬆享受無憂旅程</p>
                 </div>
-                <!-- 泰國手繪插圖：行李箱與椰子樹 -->
-                <div class="hand-drawn-badge border border-emerald-300">
-                    <svg class="w-9 h-9 text-emerald-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <!-- 手繪風格行李箱與椰子樹 (無背景圓框) -->
+                <div class="hand-drawn-icon">
+                    <svg class="w-12 h-10 text-emerald-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="14" y="24" width="28" height="28" rx="4" />
                         <path d="M 22 24 V 16 C 22 14, 34 14, 34 16 V 24" />
                         <line x1="22" y1="24" x2="22" y2="52" />
                         <line x1="34" y1="24" x2="34" y2="52" />
                         <path d="M 46 52 C 46 36, 52 24, 52 20" />
                         <path d="M 52 20 C 44 22, 40 18, 42 14" />
-                        <path d="M 52 20 C 58 18, 62 22, 60 26" />
                     </svg>
                 </div>
             </div>
@@ -322,14 +314,13 @@
                     </h2>
                     <p class="text-xs text-rose-700 mt-1">超市大採買指引，親友禮品一網打盡</p>
                 </div>
-                <!-- 泰國手繪插圖：經典手標泰式奶茶與購物包 -->
-                <div class="hand-drawn-badge border border-rose-300">
-                    <svg class="w-9 h-9 text-rose-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <!-- 手繪風格泰奶 (無背景圓框) -->
+                <div class="hand-drawn-icon">
+                    <svg class="w-12 h-10 text-rose-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M 20 22 L 24 50 C 24 53, 36 53, 36 50 L 40 22 Z" />
                         <path d="M 18 22 H 42" />
                         <path d="M 30 22 L 36 10" />
                         <rect x="42" y="28" width="14" height="22" rx="2" />
-                        <path d="M 46 28 C 46 22, 52 22, 52 28" />
                     </svg>
                 </div>
             </div>
@@ -354,14 +345,13 @@
                     </h2>
                     <p class="text-xs text-indigo-700 mt-1">隨點隨發音，溝通無障礙，輕鬆走跳曼谷</p>
                 </div>
-                <!-- 泰國手繪插圖：泰國傳統尖頂佛寺廟宇造型與對話 -->
-                <div class="hand-drawn-badge border border-indigo-300">
-                    <svg class="w-9 h-9 text-indigo-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <!-- 手繪風格泰國廟宇頂造型 (無背景圓框) -->
+                <div class="hand-drawn-icon">
+                    <svg class="w-12 h-10 text-indigo-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M 32 10 L 38 24 H 26 Z" />
                         <path d="M 22 24 L 32 14 L 42 24" />
                         <path d="M 20 24 H 44 V 50 H 20 Z" />
                         <path d="M 28 50 V 38 C 28 34, 36 34, 36 38 V 50" />
-                        <path d="M 14 50 H 50" />
                     </svg>
                 </div>
             </div>
