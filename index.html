@@ -111,7 +111,6 @@
                     </h2>
                     <p class="text-xs text-teal-700 mt-1">細心規劃每一刻，隨心享受曼谷的繁華與悠閒</p>
                 </div>
-                <!-- SVG 手繪大象插圖裝飾 -->
                 <svg class="w-12 h-12 text-teal-600 opacity-80" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 40 C12 25, 24 18, 38 18 C50 18, 56 26, 56 36 C56 46, 50 50, 42 50 C38 50, 36 46, 36 42 C36 34, 48 34, 48 26" />
                     <circle cx="24" cy="28" r="2" fill="currentColor" />
@@ -193,9 +192,8 @@
             </div>
         </section>
 
-        <!-- TAB 2: 待辦事項提醒 (支援選填日期與排序) -->
+        <!-- TAB 2: 待辦事項提醒 -->
         <section id="sec-todo" class="tab-content hidden space-y-4">
-            <!-- 頁面手繪標題 banner -->
             <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-center justify-between shadow-sm">
                 <div>
                     <h2 class="font-bold text-amber-900 text-base flex items-center gap-2">
@@ -203,7 +201,6 @@
                     </h2>
                     <p class="text-xs text-amber-700 mt-1">設定完成日期，讓行前準備井然有序不慌亂</p>
                 </div>
-                <!-- SVG 手繪日曆/勾選單插圖裝飾 -->
                 <svg class="w-10 h-10 text-amber-600 opacity-80" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="12" y="16" width="40" height="40" rx="4" />
                     <line x1="12" y1="26" x2="52" y2="26" />
@@ -218,8 +215,6 @@
                     <div>
                         <p class="text-xs text-slate-500 font-medium" id="todoProgress">完成進度：0 / 0</p>
                     </div>
-                    
-                    <!-- 排序切換按鈕 -->
                     <div class="flex items-center space-x-2">
                         <div class="flex bg-slate-100 p-0.5 rounded-lg border text-xs">
                             <button id="sortAscBtn" onclick="setTodoSortOrder('asc')" class="px-2 py-1 rounded-md bg-white text-teal-700 shadow font-semibold flex items-center gap-1">
@@ -240,7 +235,6 @@
 
         <!-- TAB 3: 行李 Check List -->
         <section id="sec-packing" class="tab-content hidden space-y-4">
-            <!-- 頁面手繪標題 banner -->
             <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-center justify-between shadow-sm">
                 <div>
                     <h2 class="font-bold text-emerald-900 text-base flex items-center gap-2">
@@ -248,7 +242,6 @@
                     </h2>
                     <p class="text-xs text-emerald-700 mt-1">分類檢查物品，輕鬆享受無憂旅程</p>
                 </div>
-                <!-- SVG 手繪行李箱插圖裝飾 -->
                 <svg class="w-10 h-10 text-emerald-600 opacity-80" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="14" y="22" width="36" height="34" rx="4" />
                     <path d="M24 22 V14 C24 11, 40 11, 40 14 V22" />
@@ -271,7 +264,6 @@
 
         <!-- TAB 4: 必買伴手禮 -->
         <section id="sec-souvenirs" class="tab-content hidden space-y-4">
-            <!-- 頁面手繪標題 banner -->
             <div class="bg-rose-50 border border-rose-200 rounded-2xl p-4 flex items-center justify-between shadow-sm">
                 <div>
                     <h2 class="font-bold text-rose-900 text-base flex items-center gap-2">
@@ -279,7 +271,6 @@
                     </h2>
                     <p class="text-xs text-rose-700 mt-1">超市大採買指引，親友禮品一網打盡</p>
                 </div>
-                <!-- SVG 手繪購物袋插圖裝飾 -->
                 <svg class="w-10 h-10 text-rose-600 opacity-80" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M16 20 L20 54 H44 L48 20 Z" />
                     <path d="M24 24 V16 C24 10, 40 10, 40 16 V24" />
@@ -300,7 +291,6 @@
 
         <!-- TAB 5: 攻略與實用泰文 -->
         <section id="sec-notice" class="tab-content hidden space-y-6">
-            <!-- 頁面手繪標題 banner -->
             <div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-4 flex items-center justify-between shadow-sm">
                 <div>
                     <h2 class="font-bold text-indigo-900 text-base flex items-center gap-2">
@@ -308,7 +298,6 @@
                     </h2>
                     <p class="text-xs text-indigo-700 mt-1">隨點隨發音，溝通無障礙，輕鬆走跳曼谷</p>
                 </div>
-                <!-- SVG 手繪對話框插圖裝飾 -->
                 <svg class="w-10 h-10 text-indigo-600 opacity-80" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M14 18 H50 C54 18, 56 20, 56 24 V40 C56 44, 54 46, 50 46 H28 L16 54 V46 H14 C10 46, 8 44, 8 40 V24 C8 20, 10 18, 14 18 Z" />
                     <circle cx="24" cy="32" r="2" fill="currentColor" />
@@ -678,7 +667,7 @@
         let editingSpotIndex = null;
         let todoSortOrder = 'asc';
 
-        // 1. firebaseConfig
+        // 1. Firebase 設定
         const firebaseConfig = {
           apiKey: "AIzaSyBTQ9I534SgPmf2oEYA5dTitAzMeL5Qhmg",
           authDomain: "thailand-travel-2027.firebaseapp.com",
@@ -689,32 +678,46 @@
         };
 
         // 2. 初始化 Firebase & Firestore
-        firebase.initializeApp(firebaseConfig);
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
         const db = firebase.firestore();
+        
+        // 開啟 Firestore 離線快取同步機制
+        db.settings({ cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED });
+        db.enablePersistence({ synchronizeTabs: true }).catch((err) => {
+            console.warn("Firestore Persistence 注意: ", err.code);
+        });
+
         const docRef = db.collection("travel").doc("2027_bangkok");
 
-        // 3. 雲端即時監聽（手機、電腦自動雙向同步）
+        // 3. 雲端即時雙向同步機制
         function listenCloudData() {
-            docRef.onSnapshot((doc) => {
+            docRef.onSnapshot({ includeMetadataChanges: true }, (doc) => {
                 if (doc.exists) {
-                    travelData = doc.data();
-                    renderAllUI();
+                    const data = doc.data();
+                    if (data && Object.keys(data).length > 0) {
+                        travelData = data;
+                        renderAllUI();
+                    }
                 } else {
+                    console.log("雲端尚未有資料，正在初始化預設資料...");
                     saveData();
                 }
             }, (error) => {
-                console.error("雲端連線失敗: ", error);
+                console.error("Firebase 雲端監聽失敗 (請確認 Rules 權限): ", error);
             });
         }
 
-        // 4. 儲存至 Firebase 雲端
+        // 4. 寫入資料庫
         function saveData() {
-            docRef.set(travelData).catch((error) => {
-                console.error("雲端儲存失敗: ", error);
+            const cleanData = JSON.parse(JSON.stringify(travelData));
+            docRef.set(cleanData, { merge: true }).catch((error) => {
+                console.error("Firebase 雲端寫入失敗: ", error);
             });
         }
 
-        // 5. 統一重新渲染 UI
+        // 5. UI 渲染方法
         function renderAllUI() {
             renderDayButtons();
             renderItinerary();
@@ -726,18 +729,11 @@
         }
 
         function resetDataPrompt() {
-            if (confirm("確定要重設回預設 6 天行程與清單嗎？")) {
-                localStorage.removeItem('thailand_travel_2027_v10');
+            if (confirm("確定要重設回預設 6 天行程與清單嗎？這將會同步蓋掉手機與電腦的雲端資料。")) {
                 travelData = JSON.parse(JSON.stringify(defaultTravelData));
                 saveData();
-                renderDayButtons();
-                renderItinerary();
-                renderTodoList();
-                renderPackingList();
-                renderSouvenirs();
-                renderFlightExtraUI();
-                renderThaiPhrases();
-                alert("已成功恢復預設行程與資料！");
+                renderAllUI();
+                alert("已成功重設並同步至雲端！");
             }
         }
 
@@ -785,11 +781,7 @@
             document.getElementById('editFlightBtn').classList.toggle('hidden', !isEditMode);
             document.getElementById('addThaiBtn').classList.toggle('hidden', !isEditMode);
 
-            renderItinerary();
-            renderTodoList();
-            renderPackingList();
-            renderSouvenirs();
-            renderThaiPhrases();
+            renderAllUI();
         }
 
         function getCategoryBadge(cat) {
@@ -804,6 +796,7 @@
 
         function renderDayButtons() {
             const container = document.getElementById('dayButtons');
+            if (!container || !travelData.days) return;
             container.innerHTML = '';
             travelData.days.forEach((day, idx) => {
                 const active = idx === currentDayIndex;
@@ -816,14 +809,16 @@
         }
 
         function renderItinerary() {
+            if (!travelData.days || !travelData.days[currentDayIndex]) return;
             const day = travelData.days[currentDayIndex];
             document.getElementById('dayTipText').innerText = day.notice || '暫無提示';
             document.getElementById('currentDayMapTitle').innerText = `Day ${day.dayNum} (${day.dateStr}) 路線地圖`;
             
             const list = document.getElementById('spotList');
+            if (!list) return;
             list.innerHTML = '';
 
-            day.spots.forEach((spot, idx) => {
+            (day.spots || []).forEach((spot, idx) => {
                 const navUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.location)}`;
                 const cardContainer = document.createElement('div');
                 cardContainer.className = "space-y-2";
@@ -896,7 +891,7 @@
 
         function renderDayMap() {
             const mapContainer = document.getElementById('dayMap');
-            if (!mapContainer) return;
+            if (!mapContainer || mapContainer.offsetParent === null) return;
 
             if (!dayMapInstance) {
                 try {
@@ -918,11 +913,11 @@
                 dayMapPolyline = null;
             }
 
-            const currentSpots = travelData.days[currentDayIndex].spots;
+            const currentSpots = (travelData.days && travelData.days[currentDayIndex]) ? travelData.days[currentDayIndex].spots : [];
             const bounds = [];
             const pathLatLngs = [];
 
-            currentSpots.forEach((spot, i) => {
+            (currentSpots || []).forEach((spot, i) => {
                 if (spot.lat && spot.lng) {
                     const latLng = [spot.lat, spot.lng];
                     bounds.push(latLng);
@@ -1052,12 +1047,14 @@
 
         function renderTodoList() {
             const container = document.getElementById('todoList');
+            if (!container) return;
             container.innerHTML = '';
             let doneCount = 0;
 
-            travelData.todos.forEach((t, i) => { if(!t.id) t.id = 'todo_' + Date.now() + '_' + i; });
+            const todos = travelData.todos || [];
+            todos.forEach((t, i) => { if(!t.id) t.id = 'todo_' + Date.now() + '_' + i; });
 
-            let sortedTodos = [...travelData.todos].sort((a, b) => {
+            let sortedTodos = [...todos].sort((a, b) => {
                 const dateA = parseTodoDate(a.date);
                 const dateB = parseTodoDate(b.date);
 
@@ -1088,11 +1085,11 @@
                 `;
                 container.appendChild(div);
             });
-            document.getElementById('todoProgress').innerText = `完成進度：${doneCount} / ${travelData.todos.length}`;
+            document.getElementById('todoProgress').innerText = `完成進度：${doneCount} / ${todos.length}`;
         }
 
         function toggleTodo(id) {
-            const item = travelData.todos.find(t => t.id === id);
+            const item = (travelData.todos || []).find(t => t.id === id);
             if (item) {
                 item.done = !item.done;
                 saveData();
@@ -1104,6 +1101,7 @@
             const text = prompt("請輸入新待辦事項：");
             if (text && text.trim()) {
                 const dateStr = prompt("請輸入完成日期/提醒日期 (選填，格式範例：2027/01/15，若無日期直接確定)：", "");
+                if (!travelData.todos) travelData.todos = [];
                 travelData.todos.push({
                     id: 'todo_' + Date.now(),
                     text: text.trim(),
@@ -1116,7 +1114,7 @@
         }
 
         function editTodoPrompt(id) {
-            const item = travelData.todos.find(t => t.id === id);
+            const item = (travelData.todos || []).find(t => t.id === id);
             if (!item) return;
             const newText = prompt("修改待辦內容：", item.text);
             if (newText && newText.trim()) {
@@ -1129,7 +1127,7 @@
         }
 
         function deleteTodo(id) {
-            const idx = travelData.todos.findIndex(t => t.id === id);
+            const idx = (travelData.todos || []).findIndex(t => t.id === id);
             if (idx !== -1) {
                 travelData.todos.splice(idx, 1);
                 saveData();
@@ -1140,11 +1138,12 @@
         // 行李清單 Check List
         function renderPackingList() {
             const container = document.getElementById('packingCategories');
+            if (!container) return;
             container.innerHTML = '';
             let totalItems = 0;
             let doneItems = 0;
 
-            travelData.packing.forEach((cat, cIdx) => {
+            (travelData.packing || []).forEach((cat, cIdx) => {
                 const box = document.createElement('div');
                 box.className = "bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2";
                 box.innerHTML = `
@@ -1161,7 +1160,7 @@
                         ${isEditMode ? `<button onclick="addPackingItemPrompt(${cIdx})" class="text-[10px] bg-teal-100 text-teal-800 px-1.5 py-0.5 rounded"><i class="fa-solid fa-plus"></i> 新增項目</button>` : ''}
                     </div>
                     <div class="space-y-1.5 text-xs">
-                        ${cat.items.map((item, iIdx) => {
+                        ${(cat.items || []).map((item, iIdx) => {
                             totalItems++;
                             if (item.done) doneItems++;
                             return `
@@ -1195,6 +1194,7 @@
         function addPackingCategoryPrompt() {
             const name = prompt("請輸入新行李分類名稱:");
             if (name && name.trim()) {
+                if (!travelData.packing) travelData.packing = [];
                 travelData.packing.push({ category: name.trim(), items: [] });
                 saveData();
                 renderPackingList();
@@ -1245,11 +1245,12 @@
         // Souvenirs
         function renderSouvenirs() {
             const container = document.getElementById('souvenirGrid');
+            if (!container) return;
             container.innerHTML = '';
-            let totalS = travelData.souvenirs.length;
+            let totalS = (travelData.souvenirs || []).length;
             let doneS = 0;
 
-            travelData.souvenirs.forEach((item, idx) => {
+            (travelData.souvenirs || []).forEach((item, idx) => {
                 if (item.done) doneS++;
                 const card = document.createElement('div');
                 card.className = `p-3 rounded-xl border transition flex flex-col justify-between ${item.done ? 'bg-slate-100 border-slate-200 opacity-60' : 'bg-slate-50 border-slate-200'}`;
@@ -1287,6 +1288,7 @@
             if (name && name.trim()) {
                 const tag = prompt("標籤 (例如：零食/藥品):", "伴手禮") || "伴手禮";
                 const note = prompt("說明備註:", "") || "";
+                if (!travelData.souvenirs) travelData.souvenirs = [];
                 travelData.souvenirs.push({ name: name.trim(), tag: tag.trim(), note: note.trim(), done: false });
                 saveData();
                 renderSouvenirs();
@@ -1379,8 +1381,9 @@
         // 泰文發音
         function renderThaiPhrases() {
             const container = document.getElementById('thaiPhrasesGrid');
+            if (!container) return;
             container.innerHTML = '';
-            travelData.thaiPhrases.forEach((p, idx) => {
+            (travelData.thaiPhrases || []).forEach((p, idx) => {
                 const box = document.createElement('div');
                 box.className = "bg-slate-50 p-3 rounded-lg border border-slate-200 flex justify-between items-center";
                 box.innerHTML = `
@@ -1418,6 +1421,7 @@
                 matchedPhonetics = prompt("請輸入中文拼音或發音說明：", "音譯") || "音譯";
             }
 
+            if (!travelData.thaiPhrases) travelData.thaiPhrases = [];
             travelData.thaiPhrases.push({
                 mean: cleanKey,
                 thai: matchedThai,
@@ -1444,9 +1448,8 @@
         }
 
         window.onload = function() {
-                    listenCloudData();
+            listenCloudData();
         };
-
     </script>
 </body>
 </html>
