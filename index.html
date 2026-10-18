@@ -13,6 +13,8 @@
     <!-- Firebase SDK (Compat 版本) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <!-- Firebase Auth SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -29,7 +31,6 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
         .day-map { height: 480px; width: 100%; border-radius: 12px; z-index: 10; }
         
-        /* 數字紅圈 Marker 樣式 */
         .custom-num-marker {
             background-color: #E11D48;
             color: white;
@@ -43,7 +44,6 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.3);
         }
 
-        /* 手繪風格圖示裝飾背景 */
         .doodle-bg {
             background-image: radial-gradient(#0d9488 0.75px, transparent 0.75px), radial-gradient(#0d9488 0.75px, #f8faf9 0.75px);
             background-size: 30px 30px;
@@ -53,6 +53,31 @@
     </style>
 </head>
 <body class="text-slate-800 pb-20">
+
+    <!-- 登入驗證 Modal -->
+    <div id="authModal" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[100] flex items-center justify-center">
+        <div class="bg-white rounded-2xl max-w-sm w-full mx-4 p-6 shadow-2xl space-y-4 text-center">
+            <div class="w-12 h-12 bg-teal-100 text-teal-700 rounded-full flex items-center justify-center mx-auto text-xl font-bold">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <div>
+                <h3 class="font-bold text-slate-800 text-lg">2027 曼谷手冊驗證</h3>
+                <p class="text-xs text-slate-500 mt-1">請輸入通行帳號與密碼</p>
+            </div>
+            <form onsubmit="handleSimpleLogin(event)" class="space-y-3">
+                <div>
+                    <input type="text" id="siteUsername" placeholder="請輸入帳號" required class="w-full border rounded-xl px-3 py-2 text-sm text-center focus:ring-2 focus:ring-teal-500 outline-none">
+                </div>
+                <div>
+                    <input type="password" id="sitePassword" placeholder="請輸入密碼" required class="w-full border rounded-xl px-3 py-2 text-sm text-center focus:ring-2 focus:ring-teal-500 outline-none">
+                </div>
+                <p id="loginError" class="text-xs text-red-500 hidden font-semibold">帳號或密碼錯誤，請重新輸入！</p>
+                <button type="submit" id="loginBtn" class="w-full py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-medium rounded-xl text-sm transition">
+                    解鎖手冊
+                </button>
+            </form>
+        </div>
+    </div>
 
     <!-- Header / Navbar -->
     <header class="bg-teal-700 text-white shadow-md sticky top-0 z-50">
@@ -100,7 +125,6 @@
 
         <!-- TAB 1: 每日行程 & 專屬地圖 -->
         <section id="sec-itinerary" class="tab-content space-y-4">
-            <!-- 頁面手繪標題 banner -->
             <div class="bg-teal-50 border border-teal-200 rounded-2xl p-4 flex items-center justify-between shadow-sm">
                 <div>
                     <h2 class="font-bold text-teal-900 text-base flex items-center gap-2">
@@ -108,12 +132,6 @@
                     </h2>
                     <p class="text-xs text-teal-700 mt-1">細心規劃每一刻，隨心享受曼谷的繁華與悠閒</p>
                 </div>
-                <svg class="w-12 h-12 text-teal-600 opacity-80" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 40 C12 25, 24 18, 38 18 C50 18, 56 26, 56 36 C56 46, 50 50, 42 50 C38 50, 36 46, 36 42 C36 34, 48 34, 48 26" />
-                    <circle cx="24" cy="28" r="2" fill="currentColor" />
-                    <path d="M16 40 C10 40, 6 46, 8 52 C10 56, 16 54, 18 48" />
-                    <path d="M28 50 L28 58 M38 50 L38 58" />
-                </svg>
             </div>
 
             <!-- 天數切換按鈕 -->
@@ -121,7 +139,7 @@
                 <div class="flex space-x-2" id="dayButtons"></div>
             </div>
 
-            <!-- 切換顯示模式（清單模式 vs 地圖模式） -->
+            <!-- 切換顯示模式 -->
             <div class="flex justify-between items-center bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
                 <div class="flex items-center gap-2">
                     <span id="dayFlightHotelNotice" class="font-bold text-teal-800 text-sm"><i class="fa-solid fa-compass text-amber-500"></i> 今日路線重點簡覽</span>
@@ -140,7 +158,6 @@
             <!-- 模式 1: 行程時間軸清單 -->
             <div id="itineraryListView" class="space-y-4">
                 <div id="spotList" class="space-y-3"></div>
-
                 <button id="addSpotBtn" onclick="openAddSpotModal()" class="w-full py-3 border-2 border-dashed border-teal-400 text-teal-600 rounded-xl hover:bg-teal-50 transition font-medium flex items-center justify-center gap-2 hidden">
                     <i class="fa-solid fa-plus-circle"></i> 新增景點／活動
                 </button>
@@ -198,13 +215,6 @@
                     </h2>
                     <p class="text-xs text-amber-700 mt-1">設定完成日期，讓行前準備井然有序不慌亂</p>
                 </div>
-                <svg class="w-10 h-10 text-amber-600 opacity-80" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="12" y="16" width="40" height="40" rx="4" />
-                    <line x1="12" y1="26" x2="52" y2="26" />
-                    <line x1="22" y1="10" x2="22" y2="18" />
-                    <line x1="42" y1="10" x2="42" y2="18" />
-                    <path d="M22 36 L28 42 L42 32" stroke-width="3" />
-                </svg>
             </div>
 
             <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
@@ -239,13 +249,6 @@
                     </h2>
                     <p class="text-xs text-emerald-700 mt-1">分類檢查物品，輕鬆享受無憂旅程</p>
                 </div>
-                <svg class="w-10 h-10 text-emerald-600 opacity-80" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="14" y="22" width="36" height="34" rx="4" />
-                    <path d="M24 22 V14 C24 11, 40 11, 40 14 V22" />
-                    <line x1="14" y1="36" x2="50" y2="36" />
-                    <circle cx="22" cy="58" r="2" fill="currentColor" />
-                    <circle cx="42" cy="58" r="2" fill="currentColor" />
-                </svg>
             </div>
 
             <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-4">
@@ -268,11 +271,6 @@
                     </h2>
                     <p class="text-xs text-rose-700 mt-1">超市大採買指引，親友禮品一網打盡</p>
                 </div>
-                <svg class="w-10 h-10 text-rose-600 opacity-80" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M16 20 L20 54 H44 L48 20 Z" />
-                    <path d="M24 24 V16 C24 10, 40 10, 40 16 V24" />
-                    <circle cx="32" cy="36" r="3" fill="currentColor" />
-                </svg>
             </div>
 
             <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-4">
@@ -295,12 +293,6 @@
                     </h2>
                     <p class="text-xs text-indigo-700 mt-1">隨點隨發音，溝通無障礙，輕鬆走跳曼谷</p>
                 </div>
-                <svg class="w-10 h-10 text-indigo-600 opacity-80" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14 18 H50 C54 18, 56 20, 56 24 V40 C56 44, 54 46, 50 46 H28 L16 54 V46 H14 C10 46, 8 44, 8 40 V24 C8 20, 10 18, 14 18 Z" />
-                    <circle cx="24" cy="32" r="2" fill="currentColor" />
-                    <circle cx="32" cy="32" r="2" fill="currentColor" />
-                    <circle cx="40" cy="32" r="2" fill="currentColor" />
-                </svg>
             </div>
 
             <!-- Flight Details -->
@@ -371,7 +363,7 @@
                         <i class="fa-solid fa-plus"></i> 新增泰文短語
                     </button>
                 </div>
-                <p class="text-xs text-slate-500">💡 編輯模式下可新增詞彙；輸入常用中文（如：算便宜一點、洗手間在哪），系統會自動帶出標準泰文與拼音！</p>
+                <p class="text-xs text-slate-500">💡 編輯模式下可新增詞彙；輸入常用中文，系統會自動帶出標準泰文與拼音！</p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs" id="thaiPhrasesGrid"></div>
             </div>
         </section>
@@ -680,13 +672,39 @@
         }
         const db = firebase.firestore();
         
-        // 開啟 Firestore 離線快取同步機制
         db.settings({ cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED });
         db.enablePersistence({ synchronizeTabs: true }).catch((err) => {
             console.warn("Firestore Persistence 注意: ", err.code);
         });
 
         const docRef = db.collection("travel").doc("2027_bangkok");
+
+        // 簡單帳密登入邏輯
+        function handleSimpleLogin(e) {
+            e.preventDefault();
+            const userInput = document.getElementById('siteUsername').value.trim();
+            const pwdInput = document.getElementById('sitePassword').value;
+            const errorEl = document.getElementById('loginError');
+            const loginBtn = document.getElementById('loginBtn');
+
+            errorEl.classList.add('hidden');
+            loginBtn.innerText = "驗證中...";
+            loginBtn.disabled = true;
+
+            // 將使用者輸入的帳號自動轉成 Firebase 格式 (例如: thailand2027 -> thailand2027@app.com)
+            const formattedEmail = userInput.includes('@') ? userInput : `${userInput}@app.com`;
+
+            firebase.auth().signInWithEmailAndPassword(formattedEmail, pwdInput)
+                .then(() => {
+                    document.getElementById('authModal').classList.add('hidden');
+                })
+                .catch((error) => {
+                    console.error("登入失敗:", error);
+                    errorEl.classList.remove('hidden');
+                    loginBtn.innerText = "解鎖手冊";
+                    loginBtn.disabled = false;
+                });
+        }
 
         // 3. 雲端即時雙向同步機制
         function listenCloudData() {
@@ -1435,8 +1453,18 @@
             }
         }
 
+        // 監聽登入狀態與初始化
         window.onload = function() {
-            listenCloudData();
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    // 已登入：隱藏彈窗並載入資料
+                    document.getElementById('authModal').classList.add('hidden');
+                    listenCloudData();
+                } else {
+                    // 未登入：顯示驗證彈窗
+                    document.getElementById('authModal').classList.remove('hidden');
+                }
+            });
         };
     </script>
 </body>
