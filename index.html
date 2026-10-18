@@ -71,9 +71,6 @@
                 <button id="toggleEditBtn" onclick="toggleEditMode()" class="bg-teal-600 hover:bg-teal-500 text-xs text-white px-3 py-1.5 rounded-lg border border-teal-400 transition flex items-center gap-1">
                     <i class="fa-solid fa-pen-to-square"></i> <span id="editBtnText">編輯模式</span>
                 </button>
-                <button onclick="resetDataPrompt()" class="bg-teal-800 hover:bg-red-700 text-xs px-2.5 py-1.5 rounded-lg text-teal-100 transition" title="重設預設資料">
-                    <i class="fa-solid fa-rotate-right"></i> 重設
-                </button>
             </div>
         </div>
         
@@ -726,15 +723,6 @@
             renderSouvenirs();
             renderFlightExtraUI();
             renderThaiPhrases();
-        }
-
-        function resetDataPrompt() {
-            if (confirm("確定要重設回預設 6 天行程與清單嗎？這將會同步蓋掉手機與電腦的雲端資料。")) {
-                travelData = JSON.parse(JSON.stringify(defaultTravelData));
-                saveData();
-                renderAllUI();
-                alert("已成功重設並同步至雲端！");
-            }
         }
 
         function switchTab(tabId) {
