@@ -50,18 +50,6 @@
             background-position: 0 0,15px 15px;
             background-opacity: 0.05;
         }
-
-        /* 無圓框、無背景的大尺寸手繪插圖容器 */
-        .hand-drawn-icon {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            flex-shrink: 0;
-            background: transparent !important;
-            border: none !important;
-            padding: 0 !important;
-            box-shadow: none !important;
-        }
     </style>
 </head>
 <body class="text-slate-800 pb-20">
@@ -137,22 +125,20 @@
 
         <!-- TAB 1: 每日行程 & 專屬地圖 -->
         <section id="sec-itinerary" class="tab-content space-y-4">
-            <div class="bg-teal-50 border border-teal-200 rounded-2xl p-4 flex items-center justify-between shadow-sm overflow-hidden">
+            <div class="bg-teal-50 border border-teal-200 rounded-2xl p-4 flex items-center justify-between shadow-sm">
                 <div>
                     <h2 class="font-bold text-teal-900 text-base flex items-center gap-2">
                         <i class="fa-solid fa-map-location-dot text-teal-600"></i> 每日靈魂探索旅程
                     </h2>
                     <p class="text-xs text-teal-700 mt-1">細心規劃每一刻，隨心享受曼谷的繁華與悠閒</p>
                 </div>
-                <!-- 舊版經典 SVG 手繪大象插圖（大尺寸無圓框） -->
-                <div class="hand-drawn-icon">
-                    <svg class="w-16 h-14 text-teal-600 opacity-90" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 40 C12 25, 24 18, 38 18 C50 18, 56 26, 56 36 C56 46, 50 50, 42 50 C38 50, 36 46, 36 42 C36 34, 48 34, 48 26" />
-                        <circle cx="24" cy="28" r="2" fill="currentColor" />
-                        <path d="M16 40 C10 40, 6 46, 8 52 C10 56, 16 54, 18 48" />
-                        <path d="M28 50 L28 58 M38 50 L38 58" />
-                    </svg>
-                </div>
+                <!-- 舊版原封不動的手繪大象插圖 -->
+                <svg class="w-12 h-12 text-teal-600 opacity-80" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 40 C12 25, 24 18, 38 18 C50 18, 56 26, 56 36 C56 46, 50 50, 42 50 C38 50, 36 46, 36 42 C36 34, 48 34, 48 26" />
+                    <circle cx="24" cy="28" r="2" fill="currentColor" />
+                    <path d="M16 40 C10 40, 6 46, 8 52 C10 56, 16 54, 18 48" />
+                    <path d="M28 50 L28 58 M38 50 L38 58" />
+                </svg>
             </div>
 
             <!-- 天數切換按鈕 -->
@@ -229,23 +215,21 @@
 
         <!-- TAB 2: 待辦事項提醒 -->
         <section id="sec-todo" class="tab-content hidden space-y-4">
-            <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-center justify-between shadow-sm overflow-hidden">
+            <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-center justify-between shadow-sm">
                 <div>
                     <h2 class="font-bold text-amber-900 text-base flex items-center gap-2">
                         <i class="fa-solid fa-clipboard-list text-amber-600"></i> 行前與旅程待辦清單
                     </h2>
                     <p class="text-xs text-amber-700 mt-1">設定完成日期，讓行前準備井然有序不慌亂</p>
                 </div>
-                <!-- 舊版經典 SVG 手繪日曆/勾選單插圖（大尺寸無圓框） -->
-                <div class="hand-drawn-icon">
-                    <svg class="w-14 h-14 text-amber-600 opacity-90" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="12" y="16" width="40" height="40" rx="4" />
-                        <line x1="12" y1="26" x2="52" y2="26" />
-                        <line x1="22" y1="10" x2="22" y2="18" />
-                        <line x1="42" y1="10" x2="42" y2="18" />
-                        <path d="M22 36 L28 42 L42 32" stroke-width="3" />
-                    </svg>
-                </div>
+                <!-- 舊版原封不動的手繪日曆/勾選單插圖 -->
+                <svg class="w-10 h-10 text-amber-600 opacity-80" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="12" y="16" width="40" height="40" rx="4" />
+                    <line x1="12" y1="26" x2="52" y2="26" />
+                    <line x1="22" y1="10" x2="22" y2="18" />
+                    <line x1="42" y1="10" x2="42" y2="18" />
+                    <path d="M22 36 L28 42 L42 32" stroke-width="3" />
+                </svg>
             </div>
 
             <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
@@ -273,23 +257,21 @@
 
         <!-- TAB 3: 行李 Check List -->
         <section id="sec-packing" class="tab-content hidden space-y-4">
-            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-center justify-between shadow-sm overflow-hidden">
+            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-center justify-between shadow-sm">
                 <div>
                     <h2 class="font-bold text-emerald-900 text-base flex items-center gap-2">
                         <i class="fa-solid fa-suitcase text-emerald-600"></i> 行李打包 Check List
                     </h2>
                     <p class="text-xs text-emerald-700 mt-1">分類檢查物品，輕鬆享受無憂旅程</p>
                 </div>
-                <!-- 舊版經典 SVG 手繪行李箱插圖（大尺寸無圓框） -->
-                <div class="hand-drawn-icon">
-                    <svg class="w-14 h-14 text-emerald-600 opacity-90" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="14" y="22" width="36" height="34" rx="4" />
-                        <path d="M24 22 V14 C24 11, 40 11, 40 14 V22" />
-                        <line x1="14" y1="36" x2="50" y2="36" />
-                        <circle cx="22" cy="58" r="2" fill="currentColor" />
-                        <circle cx="42" cy="58" r="2" fill="currentColor" />
-                    </svg>
-                </div>
+                <!-- 舊版原封不動的手繪行李箱插圖 -->
+                <svg class="w-10 h-10 text-emerald-600 opacity-80" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="14" y="22" width="36" height="34" rx="4" />
+                    <path d="M24 22 V14 C24 11, 40 11, 40 14 V22" />
+                    <line x1="14" y1="36" x2="50" y2="36" />
+                    <circle cx="22" cy="58" r="2" fill="currentColor" />
+                    <circle cx="42" cy="58" r="2" fill="currentColor" />
+                </svg>
             </div>
 
             <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-4">
@@ -305,21 +287,19 @@
 
         <!-- TAB 4: 必買伴手禮 -->
         <section id="sec-souvenirs" class="tab-content hidden space-y-4">
-            <div class="bg-rose-50 border border-rose-200 rounded-2xl p-4 flex items-center justify-between shadow-sm overflow-hidden">
+            <div class="bg-rose-50 border border-rose-200 rounded-2xl p-4 flex items-center justify-between shadow-sm">
                 <div>
                     <h2 class="font-bold text-rose-900 text-base flex items-center gap-2">
                         <i class="fa-solid fa-gift text-rose-600"></i> 曼谷必買伴手禮與零食清單
                     </h2>
                     <p class="text-xs text-rose-700 mt-1">超市大採買指引，親友禮品一網打盡</p>
                 </div>
-                <!-- 舊版經典 SVG 手繪購物袋插圖（大尺寸無圓框） -->
-                <div class="hand-drawn-icon">
-                    <svg class="w-14 h-14 text-rose-600 opacity-90" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M16 20 L20 54 H44 L48 20 Z" />
-                        <path d="M24 24 V16 C24 10, 40 10, 40 16 V24" />
-                        <circle cx="32" cy="36" r="3" fill="currentColor" />
-                    </svg>
-                </div>
+                <!-- 舊版原封不動的手繪購物袋插圖 -->
+                <svg class="w-10 h-10 text-rose-600 opacity-80" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 20 L20 54 H44 L48 20 Z" />
+                    <path d="M24 24 V16 C24 10, 40 10, 40 16 V24" />
+                    <circle cx="32" cy="36" r="3" fill="currentColor" />
+                </svg>
             </div>
 
             <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-4">
@@ -335,22 +315,20 @@
 
         <!-- TAB 5: 攻略與實用泰文 -->
         <section id="sec-notice" class="tab-content hidden space-y-6">
-            <div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-4 flex items-center justify-between shadow-sm overflow-hidden">
+            <div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-4 flex items-center justify-between shadow-sm">
                 <div>
                     <h2 class="font-bold text-indigo-900 text-base flex items-center gap-2">
                         <i class="fa-solid fa-comments text-indigo-600"></i> 旅遊攻略 & 實用溝通泰文
                     </h2>
                     <p class="text-xs text-indigo-700 mt-1">隨點隨發音，溝通無障礙，輕鬆走跳曼谷</p>
                 </div>
-                <!-- 舊版經典 SVG 手繪對話框插圖（大尺寸無圓框） -->
-                <div class="hand-drawn-icon">
-                    <svg class="w-14 h-14 text-indigo-600 opacity-90" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14 18 H50 C54 18, 56 20, 56 24 V40 C56 44, 54 46, 50 46 H28 L16 54 V46 H14 C10 46, 8 44, 8 40 V24 C8 20, 10 18, 14 18 Z" />
-                        <circle cx="24" cy="32" r="2" fill="currentColor" />
-                        <circle cx="32" cy="32" r="2" fill="currentColor" />
-                        <circle cx="40" cy="32" r="2" fill="currentColor" />
-                    </svg>
-                </div>
+                <!-- 舊版原封不動的手繪對話框插圖 -->
+                <svg class="w-10 h-10 text-indigo-600 opacity-80" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 18 H50 C54 18, 56 20, 56 24 V40 C56 44, 54 46, 50 46 H28 L16 54 V46 H14 C10 46, 8 44, 8 40 V24 C8 20, 10 18, 14 18 Z" />
+                    <circle cx="24" cy="32" r="2" fill="currentColor" />
+                    <circle cx="32" cy="32" r="2" fill="currentColor" />
+                    <circle cx="40" cy="32" r="2" fill="currentColor" />
+                </svg>
             </div>
 
             <!-- Flight Details -->
