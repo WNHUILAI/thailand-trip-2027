@@ -50,6 +50,8 @@
             background-position: 0 0,15px 15px;
             background-opacity: 0.05;
         }
+        .spot-drag-over { outline: 2px solid #0D9488; border-radius: 12px; background-color: #f0fdfa; }
+        [draggable="true"] { cursor: grab; }
     </style>
 </head>
 <body class="text-slate-800 pb-20">
@@ -350,6 +352,8 @@
                         <p class="text-xs text-slate-500" id="f_outbound_no">航班：星宇航空 JX741 (A350-900)</p>
                         <p class="text-xs text-slate-700 font-semibold" id="f_outbound_time">時間：09:50 桃園 T2 ➔ 12:55 曼谷 BKK</p>
                         <div class="mt-2 pt-2 border-t border-slate-200 text-xs text-teal-900 space-y-1 bg-white p-2 rounded">
+                            <p><i class="fa-solid fa-hashtag text-teal-600"></i> 訂位代號 (PNR)：<span id="f_outbound_booking_ref" class="font-bold text-rose-700">尚未填寫</span></p>
+                            <p><i class="fa-solid fa-ticket text-teal-600"></i> 票號：<span id="f_outbound_ticket_no" class="font-bold">尚未填寫</span></p>
                             <p><i class="fa-solid fa-chair text-teal-600"></i> 劃位座位：<span id="f_outbound_seat" class="font-bold">尚未填寫</span></p>
                             <p><i class="fa-solid fa-utensils text-teal-600"></i> 預訂餐點：<span id="f_outbound_meal" class="font-bold">尚未填寫</span></p>
                         </div>
@@ -362,6 +366,8 @@
                         <p class="text-xs text-slate-500" id="f_inbound_no">航班：星宇航空 JX746 (A350-900)</p>
                         <p class="text-xs text-slate-700 font-semibold" id="f_inbound_time">時間：17:40 曼谷 BKK ➔ 22:30 桃園 T2</p>
                         <div class="mt-2 pt-2 border-t border-slate-200 text-xs text-teal-900 space-y-1 bg-white p-2 rounded">
+                            <p><i class="fa-solid fa-hashtag text-teal-600"></i> 訂位代號 (PNR)：<span id="f_inbound_booking_ref" class="font-bold text-rose-700">尚未填寫</span></p>
+                            <p><i class="fa-solid fa-ticket text-teal-600"></i> 票號：<span id="f_inbound_ticket_no" class="font-bold">尚未填寫</span></p>
                             <p><i class="fa-solid fa-chair text-teal-600"></i> 劃位座位：<span id="f_inbound_seat" class="font-bold">尚未填寫</span></p>
                             <p><i class="fa-solid fa-utensils text-teal-600"></i> 預訂餐點：<span id="f_inbound_meal" class="font-bold">尚未填寫</span></p>
                         </div>
@@ -402,6 +408,199 @@
                 <p class="text-xs text-slate-500">編輯模式下可新增詞彙；輸入常用中文，系統會自動帶出標準泰文與拼音！</p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs" id="thaiPhrasesGrid"></div>
             </div>
+
+            <!-- 飛機注意事項 -->
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-4">
+                <h3 class="font-bold text-teal-800 text-base flex items-center gap-2 border-b pb-2">
+                    <i class="fa-solid fa-plane-up text-teal-600"></i> 搭機重要注意事項
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div class="bg-rose-50 p-3.5 rounded-lg border border-rose-200 space-y-2">
+                        <h4 class="font-bold text-rose-800 text-sm flex items-center gap-1"><i class="fa-solid fa-battery-three-quarters text-rose-600"></i> 行動電源規定</h4>
+                        <ul class="space-y-1.5 text-rose-900">
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-triangle-exclamation text-red-500 mt-0.5 shrink-0"></i><span><strong>行動電源必須放手提行李（隨身）</strong>，嚴禁託運！</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-circle-check text-green-500 mt-0.5 shrink-0"></i><span>100Wh 以下：可隨身攜帶（免申請）</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-circle-exclamation text-amber-500 mt-0.5 shrink-0"></i><span>100～160Wh：需航空公司批准，每人限 2 個</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-circle-xmark text-red-500 mt-0.5 shrink-0"></i><span>160Wh 以上：一律禁止攜帶</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-amber-50 p-3.5 rounded-lg border border-amber-200 space-y-2">
+                        <h4 class="font-bold text-amber-800 text-sm flex items-center gap-1"><i class="fa-solid fa-bottle-water text-amber-600"></i> 液體 / 凝膠規定（手提行李）</h4>
+                        <ul class="space-y-1.5 text-amber-900">
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-circle-check text-green-500 mt-0.5 shrink-0"></i><span>每件液體 / 凝膠 / 噴霧 ≤ <strong>100ml</strong></span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-circle-check text-green-500 mt-0.5 shrink-0"></i><span>全部裝入 <strong>1 個</strong> 透明夾鏈袋（總容量 ≤ 1 公升）</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-circle-xmark text-red-500 mt-0.5 shrink-0"></i><span>超過 100ml 的液體須放託運行李</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-circle-check text-green-500 mt-0.5 shrink-0"></i><span>購物免稅品（店家密封袋內）可攜帶上機</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-red-50 p-3.5 rounded-lg border border-red-200 space-y-2">
+                        <h4 class="font-bold text-red-800 text-sm flex items-center gap-1"><i class="fa-solid fa-ban text-red-600"></i> 入境台灣 — 嚴禁攜帶</h4>
+                        <ul class="space-y-1.5 text-red-900">
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-circle-xmark text-red-500 mt-0.5 shrink-0"></i><span><strong>肉類及肉製品</strong>（鮮肉、香腸、臘腸、含肉泡麵包等）— 違者最高罰款 NT$1,000,000</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-circle-xmark text-red-500 mt-0.5 shrink-0"></i><span>鮮果、蔬菜、植物（需事先申報）</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-circle-check text-green-500 mt-0.5 shrink-0"></i><span>密封包裝零食點心（餅乾、糖果、乾燥零食）：可攜帶</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-circle-check text-green-500 mt-0.5 shrink-0"></i><span>泡麵（不含肉包）：可攜帶</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200 space-y-2">
+                        <h4 class="font-bold text-slate-800 text-sm flex items-center gap-1"><i class="fa-solid fa-suitcase text-slate-600"></i> 其他搭機提醒</h4>
+                        <ul class="space-y-1.5 text-slate-700">
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-circle-check text-teal-500 mt-0.5 shrink-0"></i><span>報到時間：起飛前至少 <strong>2 小時</strong>（建議 2.5 小時）</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-circle-check text-teal-500 mt-0.5 shrink-0"></i><span>打火機、火柴：每人限帶 1 個於隨身行李，嚴禁託運</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-circle-check text-teal-500 mt-0.5 shrink-0"></i><span>刀具 / 剪刀 / 尖銳物品：一律放託運行李</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-circle-check text-teal-500 mt-0.5 shrink-0"></i><span>藥品：依實際需求量裝入原包裝攜帶</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 搭船時刻表 -->
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-4">
+                <h3 class="font-bold text-teal-800 text-base flex items-center gap-2 border-b pb-2">
+                    <i class="fa-solid fa-ferry text-teal-600"></i> 昭披耶河搭船時刻表
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div class="bg-blue-50 p-3.5 rounded-lg border border-blue-200 space-y-2">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="bg-blue-600 text-white font-bold px-2 py-0.5 rounded text-[11px]">藍旗觀光船</span>
+                            <span class="text-blue-800 font-semibold">Chao Phraya Tourist Boat</span>
+                        </div>
+                        <ul class="space-y-1.5 text-blue-900">
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-clock text-blue-500 mt-0.5 shrink-0"></i><span>營業時間：<strong>09:00 – 21:00</strong></span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-rotate text-blue-500 mt-0.5 shrink-0"></i><span>班距：每 <strong>30 分鐘</strong> 一班</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-coins text-blue-500 mt-0.5 shrink-0"></i><span>票價：<strong>40–60 銖</strong>（全日無限搭乘日票 200 銖）</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-route text-blue-500 mt-0.5 shrink-0"></i><span>路線：Phra Arthit ↔ ICONSIAM（途經大皇宮、臥佛寺等 9 站）</span></li>
+                        </ul>
+                        <p class="text-[11px] text-blue-700 bg-white p-2 rounded border border-blue-100 mt-1"><i class="fa-solid fa-star text-amber-400"></i> Day5 從 Tha Chang 搭藍旗船直達 ICONSIAM！</p>
+                    </div>
+                    <div class="bg-orange-50 p-3.5 rounded-lg border border-orange-200 space-y-2">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="bg-orange-500 text-white font-bold px-2 py-0.5 rounded text-[11px]">橙旗班船</span>
+                            <span class="text-orange-800 font-semibold">Express Boat（通勤船）</span>
+                        </div>
+                        <ul class="space-y-1.5 text-orange-900">
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-clock text-orange-500 mt-0.5 shrink-0"></i><span>尖峰：<strong>06:00–08:30 / 15:00–19:30</strong></span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-rotate text-orange-500 mt-0.5 shrink-0"></i><span>班距：每 <strong>15–20 分鐘</strong> 一班</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-coins text-orange-500 mt-0.5 shrink-0"></i><span>票價：<strong>15–30 銖</strong>（依距離計費）</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-route text-orange-500 mt-0.5 shrink-0"></i><span>路線：Nonthaburi ↔ Rat Burana（多站停靠）</span></li>
+                        </ul>
+                        <p class="text-[11px] text-orange-700 bg-white p-2 rounded border border-orange-100 mt-1"><i class="fa-solid fa-circle-info"></i> 本地人通勤用，班次多但較擁擠</p>
+                    </div>
+                </div>
+                <div class="bg-teal-50 p-3 rounded-lg border border-teal-200 text-xs text-teal-900">
+                    <p class="font-bold mb-2"><i class="fa-solid fa-map-location-dot text-teal-600"></i> 主要碼頭對照</p>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                        <div class="bg-white p-2 rounded border border-teal-100"><p class="font-bold">Tha Chang (N9)</p><p class="text-[11px] text-teal-700">大皇宮 / 玉佛寺出口</p></div>
+                        <div class="bg-white p-2 rounded border border-teal-100"><p class="font-bold">Ratchawong (N6)</p><p class="text-[11px] text-teal-700">嵩越路 / 唐人街附近</p></div>
+                        <div class="bg-white p-2 rounded border border-teal-100"><p class="font-bold">ICONSIAM (S7)</p><p class="text-[11px] text-teal-700">暹羅天地專屬碼頭</p></div>
+                        <div class="bg-white p-2 rounded border border-teal-100"><p class="font-bold">Sathorn (Central)</p><p class="text-[11px] text-teal-700">BTS Saphan Taksin 站相連</p></div>
+                        <div class="bg-white p-2 rounded border border-teal-100"><p class="font-bold">Phra Arthit (N13)</p><p class="text-[11px] text-teal-700">卡歐山路 / 背包客區</p></div>
+                        <div class="bg-white p-2 rounded border border-teal-100"><p class="font-bold">Oriental Pier (N1)</p><p class="text-[11px] text-teal-700">東方文華酒店附近</p></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LINE MAN 外送 -->
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-4">
+                <h3 class="font-bold text-teal-800 text-base flex items-center gap-2 border-b pb-2">
+                    <i class="fa-solid fa-bag-shopping text-green-600"></i> LINE MAN 外送 — 推薦點餐清單
+                </h3>
+                <p class="text-xs text-slate-500"><i class="fa-solid fa-circle-info text-teal-500"></i> 下雨天或懶得出門的好選擇！在 LINE App 開啟「LINE MAN」功能，或直接下載 LINE MAN Wongnai App</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+                    <div class="bg-green-50 p-3 rounded-lg border border-green-200 space-y-1.5">
+                        <h4 class="font-bold text-green-800 text-sm flex items-center gap-1"><i class="fa-solid fa-bowl-rice text-green-600"></i> 泰式主食</h4>
+                        <ul class="space-y-1 text-green-900">
+                            <li>🍚 海南雞飯 ข้าวมันไก่ — 約 80-120 銖</li>
+                            <li>🍜 船麵 ก๋วยเตี๋ยวเรือ — 約 60-100 銖</li>
+                            <li>🍛 打拋豬飯 ผัดกระเพราหมู — 約 60-90 銖</li>
+                            <li>🍝 炒河粉 Pad Thai — 約 80-150 銖</li>
+                            <li>🌶️ 泰式炒飯 ข้าวผัด — 約 70-120 銖</li>
+                        </ul>
+                    </div>
+                    <div class="bg-orange-50 p-3 rounded-lg border border-orange-200 space-y-1.5">
+                        <h4 class="font-bold text-orange-800 text-sm flex items-center gap-1"><i class="fa-solid fa-fire-flame-curved text-orange-600"></i> 湯麵 / 咖哩</h4>
+                        <ul class="space-y-1 text-orange-900">
+                            <li>🦐 冬蔭功酸辣湯 ต้มยำกุ้ง — 約 150-250 銖</li>
+                            <li>🥥 綠咖哩雞 แกงเขียวหวานไก่ — 約 120-180 銖</li>
+                            <li>🟡 黃咖哩 แกงกะหรี่ — 約 100-160 銖</li>
+                            <li>🍜 媽媽麵升級版 มาม่าต้มยำ — 約 50-80 銖</li>
+                            <li>🐟 酸辣魚湯粉 — 約 80-120 銖</li>
+                        </ul>
+                    </div>
+                    <div class="bg-yellow-50 p-3 rounded-lg border border-yellow-200 space-y-1.5">
+                        <h4 class="font-bold text-yellow-800 text-sm flex items-center gap-1"><i class="fa-solid fa-mug-hot text-yellow-600"></i> 飲料 / 甜點</h4>
+                        <ul class="space-y-1 text-yellow-900">
+                            <li>🧋 泰式奶茶 ชาเย็น — 約 40-60 銖</li>
+                            <li>🥭 芒果糯米飯 ข้าวเหนียวมะม่วง — 約 80-150 銖</li>
+                            <li>🍦 芒果沙冰 / 冰淇淋 — 約 60-120 銖</li>
+                            <li>🫧 手標泰奶冰飲 — 約 50-80 銖</li>
+                            <li>🥤 椰子水 มะพร้าว — 約 40-70 銖</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-50 p-3 rounded-lg border border-blue-200 space-y-1.5">
+                        <h4 class="font-bold text-blue-800 text-sm flex items-center gap-1"><i class="fa-solid fa-mobile-screen text-blue-600"></i> 使用步驟</h4>
+                        <ol class="space-y-1 text-blue-900 list-decimal list-inside">
+                            <li>開啟 LINE App ➔ 點選 LINE MAN</li>
+                            <li>選擇「Food」外送服務</li>
+                            <li>設定飯店地址為送達地點</li>
+                            <li>選擇餐廳 ➔ 加入購物車</li>
+                            <li>信用卡 / TrueMoney 付款</li>
+                            <li>等待送達（市區約 30-45 分鐘）</li>
+                        </ol>
+                    </div>
+                    <div class="bg-teal-50 p-3 rounded-lg border border-teal-200 space-y-1.5 md:col-span-2">
+                        <h4 class="font-bold text-teal-800 text-sm flex items-center gap-1"><i class="fa-solid fa-lightbulb text-amber-500"></i> 點餐小技巧</h4>
+                        <ul class="space-y-1 text-teal-900 grid grid-cols-1 md:grid-cols-2">
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-star text-amber-400 mt-0.5 shrink-0"></i><span>選評分 4.5 以上的餐廳，品質有保障</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-star text-amber-400 mt-0.5 shrink-0"></i><span>備註欄寫「ไม่เผ็ด」（不要辣）</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-star text-amber-400 mt-0.5 shrink-0"></i><span>新用戶通常有折扣碼，記得先找優惠</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-star text-amber-400 mt-0.5 shrink-0"></i><span>最低消費通常 100-150 銖，可合併點餐</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Muvmi 叫車 -->
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-4">
+                <div class="flex items-center justify-between border-b pb-2">
+                    <h3 class="font-bold text-teal-800 text-base flex items-center gap-2">
+                        <i class="fa-solid fa-bolt text-yellow-500"></i> Muvmi 電動嘟嘟車叫車教學
+                    </h3>
+                    <span class="bg-yellow-400 text-yellow-900 text-[10px] font-bold px-2 py-0.5 rounded">曼谷短程神器</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div class="bg-yellow-50 p-3.5 rounded-lg border border-yellow-200 space-y-2">
+                        <h4 class="font-bold text-yellow-800 text-sm mb-1"><i class="fa-solid fa-circle-info text-yellow-600"></i> 什麼是 Muvmi？</h4>
+                        <ul class="space-y-1.5 text-yellow-900">
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-bolt text-yellow-500 mt-0.5 shrink-0"></i><span>曼谷的電動嘟嘟車 (Electric Tuk-Tuk) 叫車 App</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-map-pin text-yellow-500 mt-0.5 shrink-0"></i><span>服務範圍：<strong>Asok / Sukhumvit / Phrom Phong / Ekkamai</strong></span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-route text-yellow-500 mt-0.5 shrink-0"></i><span>單程限制：<strong>1.5 公里以內</strong>（BTS 站點間移動最適合）</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-coins text-yellow-500 mt-0.5 shrink-0"></i><span>費用：固定 <strong>50 銖</strong> 起（比計程車便宜多了）</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-users text-yellow-500 mt-0.5 shrink-0"></i><span>最多乘坐：<strong>2 人</strong>（也有 4 人座車款）</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200 space-y-2">
+                        <h4 class="font-bold text-slate-800 text-sm mb-1"><i class="fa-solid fa-mobile-screen-button text-slate-600"></i> 操作步驟</h4>
+                        <ol class="space-y-2 text-slate-700">
+                            <li class="flex items-start gap-2"><span class="bg-teal-600 text-white font-bold rounded-full w-5 h-5 flex items-center justify-center text-[11px] shrink-0 mt-0.5">1</span><span>下載 <strong>Muvmi App</strong>（iOS / Android），並完成手機號碼驗證（可用台灣號碼）</span></li>
+                            <li class="flex items-start gap-2"><span class="bg-teal-600 text-white font-bold rounded-full w-5 h-5 flex items-center justify-center text-[11px] shrink-0 mt-0.5">2</span><span>開啟 App ➔ 地圖會顯示附近 Muvmi 車輛位置</span></li>
+                            <li class="flex items-start gap-2"><span class="bg-teal-600 text-white font-bold rounded-full w-5 h-5 flex items-center justify-center text-[11px] shrink-0 mt-0.5">3</span><span>點選目的地 ➔ 確認上車點（App 會顯示建議上車位置）</span></li>
+                            <li class="flex items-start gap-2"><span class="bg-teal-600 text-white font-bold rounded-full w-5 h-5 flex items-center justify-center text-[11px] shrink-0 mt-0.5">4</span><span>確認費用後點「Book」，等待司機（約 <strong>5-15 分鐘</strong>）</span></li>
+                            <li class="flex items-start gap-2"><span class="bg-teal-600 text-white font-bold rounded-full w-5 h-5 flex items-center justify-center text-[11px] shrink-0 mt-0.5">5</span><span>到達後用信用卡、TrueMoney 或現金付款</span></li>
+                        </ol>
+                    </div>
+                    <div class="bg-teal-50 p-3 rounded-lg border border-teal-200 space-y-1.5 md:col-span-2">
+                        <h4 class="font-bold text-teal-800 text-sm flex items-center gap-1 mb-1"><i class="fa-solid fa-lightbulb text-amber-500"></i> 行程中最適合使用 Muvmi 的時機</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-1.5 text-xs text-teal-900">
+                            <div class="flex items-start gap-1.5"><i class="fa-solid fa-location-dot text-teal-600 mt-0.5 shrink-0"></i><span><strong>Day4</strong>：EmSphere ↔ Terminal 21（Asok 一帶短程）</span></div>
+                            <div class="flex items-start gap-1.5"><i class="fa-solid fa-location-dot text-teal-600 mt-0.5 shrink-0"></i><span>BTS 站到附近餐廳（避免走路曬太陽）</span></div>
+                            <div class="flex items-start gap-1.5"><i class="fa-solid fa-location-dot text-teal-600 mt-0.5 shrink-0"></i><span>Sukhumvit 區內 1.5km 以內的短程移動</span></div>
+                            <div class="flex items-start gap-1.5"><i class="fa-solid fa-location-dot text-teal-600 mt-0.5 shrink-0"></i><span>下雨時快速抵達有遮蔽的餐廳或百貨</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
     </main>
@@ -496,6 +695,16 @@
                     </div>
                     <div class="grid grid-cols-2 gap-2 pt-1 border-t">
                         <div>
+                            <label class="block text-slate-600 mb-0.5">訂位代號 (PNR)</label>
+                            <input type="text" id="mf_out_booking_ref" class="w-full border rounded px-2 py-1" placeholder="例如：ABCDEF">
+                        </div>
+                        <div>
+                            <label class="block text-slate-600 mb-0.5">票號</label>
+                            <input type="text" id="mf_out_ticket_no" class="w-full border rounded px-2 py-1" placeholder="例如：695-1234567890">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
                             <label class="block text-slate-600 mb-0.5">劃位座位</label>
                             <input type="text" id="mf_out_seat" class="w-full border rounded px-2 py-1" placeholder="例如：15A, 15B">
                         </div>
@@ -529,6 +738,16 @@
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-2 pt-1 border-t">
+                        <div>
+                            <label class="block text-slate-600 mb-0.5">訂位代號 (PNR)</label>
+                            <input type="text" id="mf_in_booking_ref" class="w-full border rounded px-2 py-1" placeholder="例如：ABCDEF">
+                        </div>
+                        <div>
+                            <label class="block text-slate-600 mb-0.5">票號</label>
+                            <input type="text" id="mf_in_ticket_no" class="w-full border rounded px-2 py-1" placeholder="例如：695-1234567890">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
                         <div>
                             <label class="block text-slate-600 mb-0.5">劃位座位</label>
                             <input type="text" id="mf_in_seat" class="w-full border rounded px-2 py-1" placeholder="例如：15A, 15B">
@@ -570,11 +789,13 @@
                 outboundDate: "2027 / 1 / 16 (六)",
                 outboundNo: "星宇航空 JX741 (A350-900)",
                 outboundTime: "09:50 桃園 T2 ➔ 12:55 曼谷 BKK",
+                outboundBookingRef: "尚未填寫", outboundTicketNo: "尚未填寫",
                 outboundSeat: "尚未填寫", outboundMeal: "尚未填寫",
                 inboundTitle: "回程：BKK 曼谷 ➔ TPE 台北",
                 inboundDate: "2027 / 1 / 21 (四)",
                 inboundNo: "星宇航空 JX746 (A350-900)",
                 inboundTime: "17:40 曼谷 BKK ➔ 22:30 桃園 T2",
+                inboundBookingRef: "尚未填寫", inboundTicketNo: "尚未填寫",
                 inboundSeat: "尚未填寫", inboundMeal: "尚未填寫"
             },
             days: [
@@ -690,6 +911,7 @@
         let dayMapMarkers = [];
         let dayMapPolyline = null;
         let editingSpotIndex = null;
+        let dragSrcIndex = null;
         let todoSortOrder = 'asc';
 
         // 1. Firebase 設定
@@ -862,7 +1084,46 @@
             (day.spots || []).forEach((spot, idx) => {
                 const navUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.location)}`;
                 const cardContainer = document.createElement('div');
-                cardContainer.className = "space-y-2";
+                cardContainer.className = "space-y-2 rounded-xl";
+
+                if (isEditMode) {
+                    cardContainer.setAttribute('draggable', 'true');
+                    const capturedIdx = idx;
+                    cardContainer.addEventListener('dragstart', (e) => {
+                        dragSrcIndex = capturedIdx;
+                        setTimeout(() => { cardContainer.style.opacity = '0.4'; }, 0);
+                        e.dataTransfer.effectAllowed = 'move';
+                    });
+                    cardContainer.addEventListener('dragend', () => {
+                        cardContainer.style.opacity = '1';
+                        document.querySelectorAll('#spotList .spot-drag-over').forEach(el => el.classList.remove('spot-drag-over'));
+                        dragSrcIndex = null;
+                    });
+                    cardContainer.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        e.dataTransfer.dropEffect = 'move';
+                        document.querySelectorAll('#spotList .spot-drag-over').forEach(el => el.classList.remove('spot-drag-over'));
+                        cardContainer.classList.add('spot-drag-over');
+                    });
+                    cardContainer.addEventListener('dragleave', (e) => {
+                        if (!cardContainer.contains(e.relatedTarget)) {
+                            cardContainer.classList.remove('spot-drag-over');
+                        }
+                    });
+                    cardContainer.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        cardContainer.classList.remove('spot-drag-over');
+                        if (dragSrcIndex !== null && dragSrcIndex !== capturedIdx) {
+                            const spots = travelData.days[currentDayIndex].spots;
+                            const [removed] = spots.splice(dragSrcIndex, 1);
+                            spots.splice(capturedIdx, 0, removed);
+                            saveData();
+                            renderItinerary();
+                        }
+                        dragSrcIndex = null;
+                    });
+                }
 
                 const accordionId = `acc_${currentDayIndex}_${idx}`;
                 const spotCard = document.createElement('div');
@@ -870,6 +1131,7 @@
                 
                 spotCard.innerHTML = `
                     <div class="flex items-start justify-between gap-3">
+                        ${isEditMode ? '<div class="text-slate-300 cursor-grab shrink-0 pt-0.5" title="拖曳排序行程順序"><i class="fa-solid fa-grip-vertical text-lg"></i></div>' : ''}
                         <div class="flex-1">
                             <div class="flex items-center space-x-2">
                                 ${getCategoryBadge(spot.category)}
@@ -1361,6 +1623,8 @@
             document.getElementById('f_outbound_date').innerText = fe.outboundDate || "2027 / 1 / 16 (六)";
             document.getElementById('f_outbound_no').innerText = `航班：${fe.outboundNo || '尚未設定'}`;
             document.getElementById('f_outbound_time').innerText = `時間：${fe.outboundTime || '尚未設定'}`;
+            document.getElementById('f_outbound_booking_ref').innerText = fe.outboundBookingRef || '尚未填寫';
+            document.getElementById('f_outbound_ticket_no').innerText = fe.outboundTicketNo || '尚未填寫';
             document.getElementById('f_outbound_seat').innerText = fe.outboundSeat || '尚未填寫';
             document.getElementById('f_outbound_meal').innerText = fe.outboundMeal || '尚未填寫';
 
@@ -1368,6 +1632,8 @@
             document.getElementById('f_inbound_date').innerText = fe.inboundDate || "2027 / 1 / 21 (四)";
             document.getElementById('f_inbound_no').innerText = `航班：${fe.inboundNo || '尚未設定'}`;
             document.getElementById('f_inbound_time').innerText = `時間：${fe.inboundTime || '尚未設定'}`;
+            document.getElementById('f_inbound_booking_ref').innerText = fe.inboundBookingRef || '尚未填寫';
+            document.getElementById('f_inbound_ticket_no').innerText = fe.inboundTicketNo || '尚未填寫';
             document.getElementById('f_inbound_seat').innerText = fe.inboundSeat || '尚未填寫';
             document.getElementById('f_inbound_meal').innerText = fe.inboundMeal || '尚未填寫';
 
@@ -1380,6 +1646,8 @@
             document.getElementById('mf_out_date').value = fe.outboundDate || '';
             document.getElementById('mf_out_no').value = fe.outboundNo || '';
             document.getElementById('mf_out_time').value = fe.outboundTime || '';
+            document.getElementById('mf_out_booking_ref').value = fe.outboundBookingRef || '';
+            document.getElementById('mf_out_ticket_no').value = fe.outboundTicketNo || '';
             document.getElementById('mf_out_seat').value = fe.outboundSeat || '';
             document.getElementById('mf_out_meal').value = fe.outboundMeal || '';
 
@@ -1387,6 +1655,8 @@
             document.getElementById('mf_in_date').value = fe.inboundDate || '';
             document.getElementById('mf_in_no').value = fe.inboundNo || '';
             document.getElementById('mf_in_time').value = fe.inboundTime || '';
+            document.getElementById('mf_in_booking_ref').value = fe.inboundBookingRef || '';
+            document.getElementById('mf_in_ticket_no').value = fe.inboundTicketNo || '';
             document.getElementById('mf_in_seat').value = fe.inboundSeat || '';
             document.getElementById('mf_in_meal').value = fe.inboundMeal || '';
 
@@ -1404,6 +1674,8 @@
                 outboundDate: document.getElementById('mf_out_date').value.trim(),
                 outboundNo: document.getElementById('mf_out_no').value.trim(),
                 outboundTime: document.getElementById('mf_out_time').value.trim(),
+                outboundBookingRef: document.getElementById('mf_out_booking_ref').value.trim(),
+                outboundTicketNo: document.getElementById('mf_out_ticket_no').value.trim(),
                 outboundSeat: document.getElementById('mf_out_seat').value.trim(),
                 outboundMeal: document.getElementById('mf_out_meal').value.trim(),
 
@@ -1411,6 +1683,8 @@
                 inboundDate: document.getElementById('mf_in_date').value.trim(),
                 inboundNo: document.getElementById('mf_in_no').value.trim(),
                 inboundTime: document.getElementById('mf_in_time').value.trim(),
+                inboundBookingRef: document.getElementById('mf_in_booking_ref').value.trim(),
+                inboundTicketNo: document.getElementById('mf_in_ticket_no').value.trim(),
                 inboundSeat: document.getElementById('mf_in_seat').value.trim(),
                 inboundMeal: document.getElementById('mf_in_meal').value.trim()
             };
