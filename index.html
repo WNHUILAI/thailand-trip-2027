@@ -477,9 +477,16 @@
 
             <!-- 搭船時刻表 -->
             <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-4">
-                <h3 class="font-bold text-teal-800 text-base flex items-center gap-2 border-b pb-2">
-                    <i class="fa-solid fa-ferry text-teal-600"></i> 昭披耶河搭船時刻表
-                </h3>
+                <div class="flex items-center justify-between border-b pb-2">
+                    <h3 class="font-bold text-teal-800 text-base flex items-center gap-2">
+                        <i class="fa-solid fa-ferry text-teal-600"></i> 昭披耶河搭船時刻表
+                    </h3>
+                    <div class="flex bg-slate-100 p-0.5 rounded-lg text-xs font-semibold">
+                        <button id="ferryInfoBtn" onclick="toggleFerryView('info')" class="px-3 py-1 rounded-md bg-white text-teal-700 shadow flex items-center gap-1"><i class="fa-solid fa-list-ul"></i> 資訊</button>
+                        <button id="ferryMapBtn" onclick="toggleFerryView('map')" class="px-3 py-1 rounded-md text-slate-500 hover:text-teal-700 flex items-center gap-1"><i class="fa-solid fa-map-location-dot"></i> 路線地圖</button>
+                    </div>
+                </div>
+                <div id="ferryInfoView" class="space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                     <div class="bg-blue-50 p-3.5 rounded-lg border border-blue-200 space-y-2">
                         <div class="flex items-center gap-2 mb-1">
@@ -487,10 +494,11 @@
                             <span class="text-blue-800 font-semibold">Chao Phraya Tourist Boat</span>
                         </div>
                         <ul class="space-y-1.5 text-blue-900">
-                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-clock text-blue-500 mt-0.5 shrink-0"></i><span>營業時間：<strong>09:00 – 21:00</strong></span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-clock text-blue-500 mt-0.5 shrink-0"></i><span>營業時間：<strong>09:00 – 21:00</strong>，<strong>非整點發船</strong>——每 30 分鐘一班（09:00、09:30、10:00…）</span></li>
                             <li class="flex items-start gap-1.5"><i class="fa-solid fa-rotate text-blue-500 mt-0.5 shrink-0"></i><span>班距：每 <strong>30 分鐘</strong> 一班</span></li>
                             <li class="flex items-start gap-1.5"><i class="fa-solid fa-coins text-blue-500 mt-0.5 shrink-0"></i><span>票價：<strong>40–60 銖</strong>（全日無限搭乘日票 200 銖）</span></li>
-                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-route text-blue-500 mt-0.5 shrink-0"></i><span>路線：Phra Arthit ↔ ICONSIAM（途經大皇宮、臥佛寺等 9 站）</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-route text-blue-500 mt-0.5 shrink-0"></i><span>路線：<strong>N13 Phra Arthit（北端）</strong> ↔ <strong>S7 ICONSIAM（南端）</strong>，途經大皇宮、臥佛寺等 9 站</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-compass text-blue-500 mt-0.5 shrink-0"></i><span>辨別方向：看碼頭電子看板終點站名——往南 → <strong>ICONSIAM</strong>，往北 → <strong>Phra Arthit</strong></span></li>
                         </ul>
                         <p class="text-[11px] text-blue-700 bg-white p-2 rounded border border-blue-100 mt-1"><i class="fa-solid fa-star text-amber-400"></i> Day5 從 Tha Chang 搭藍旗船直達 ICONSIAM！</p>
                     </div>
@@ -500,10 +508,11 @@
                             <span class="text-orange-800 font-semibold">Express Boat（通勤船）</span>
                         </div>
                         <ul class="space-y-1.5 text-orange-900">
-                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-clock text-orange-500 mt-0.5 shrink-0"></i><span>尖峰：<strong>06:00–08:30 / 15:00–19:30</strong></span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-clock text-orange-500 mt-0.5 shrink-0"></i><span>尖峰 <strong>06:00–08:30 / 15:00–19:30</strong>，<strong>非整點發船</strong>——每 15–20 分鐘一班</span></li>
                             <li class="flex items-start gap-1.5"><i class="fa-solid fa-rotate text-orange-500 mt-0.5 shrink-0"></i><span>班距：每 <strong>15–20 分鐘</strong> 一班</span></li>
                             <li class="flex items-start gap-1.5"><i class="fa-solid fa-coins text-orange-500 mt-0.5 shrink-0"></i><span>票價：<strong>15–30 銖</strong>（依距離計費）</span></li>
-                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-route text-orange-500 mt-0.5 shrink-0"></i><span>路線：Nonthaburi ↔ Rat Burana（多站停靠）</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-route text-orange-500 mt-0.5 shrink-0"></i><span>路線：<strong>Nonthaburi（北）</strong> ↔ <strong>Rat Burana（南）</strong>，多站停靠，範圍比藍旗廣</span></li>
+                            <li class="flex items-start gap-1.5"><i class="fa-solid fa-compass text-orange-500 mt-0.5 shrink-0"></i><span>辨別方向：碼頭看板顯示終點——往南 → <strong>Rat Burana</strong>，往北 → <strong>Nonthaburi</strong></span></li>
                         </ul>
                         <p class="text-[11px] text-orange-700 bg-white p-2 rounded border border-orange-100 mt-1"><i class="fa-solid fa-circle-info"></i> 本地人通勤用，班次多但較擁擠</p>
                     </div>
@@ -556,6 +565,17 @@
                         </div>
                     </div>
                 </div>
+                </div><!-- /ferryInfoView -->
+
+                <!-- 路線地圖檢視 -->
+                <div id="ferryMapView" class="hidden space-y-2">
+                    <div class="flex flex-wrap gap-x-5 gap-y-1 text-xs mb-1">
+                        <span class="flex items-center gap-1.5"><span class="inline-block w-7 h-2 rounded" style="background:#2563EB"></span><span class="font-semibold text-blue-700">藍旗觀光船</span> N13↔S7（9站）</span>
+                        <span class="flex items-center gap-1.5"><span class="inline-block w-7 h-0 border-t-[3px]" style="border-color:#EA580C;border-style:dashed"></span><span class="font-semibold text-orange-600">橙旗通勤船</span> Nonthaburi↔Rat Burana</span>
+                    </div>
+                    <div id="ferryRouteMap" style="height:400px;border-radius:10px;border:1px solid #e2e8f0;"></div>
+                    <p class="text-[11px] text-slate-500 text-center">船隻雙向行駛 ↕ &nbsp;|&nbsp; 點擊藍色圓點可查看碼頭名稱與景點</p>
+                </div>
             </div>
 
             <!-- LINE MAN 外送 -->
@@ -569,20 +589,15 @@
                     </button>
                 </div>
                 <p class="text-xs text-slate-500"><i class="fa-solid fa-circle-info text-teal-500"></i> 下雨天或懶得出門的好選擇！在 LINE App 開啟「LINE MAN」功能，或直接下載 LINE MAN Wongnai App</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                     <div class="bg-green-50 p-3 rounded-lg border border-green-200 space-y-1.5">
-                        <h4 class="font-bold text-green-800 text-sm flex items-center gap-1"><i class="fa-solid fa-bowl-rice text-green-600"></i> 泰式主食</h4>
+                        <h4 class="font-bold text-green-800 text-sm flex items-center gap-1"><i class="fa-solid fa-bowl-rice text-green-600"></i> 主食</h4>
                         <ul class="space-y-1 text-green-900" id="linman-ul-main">
                             <li>🍚 海南雞飯 ข้าวมันไก่ — 約 80-120 銖</li>
                             <li>🍜 船麵 ก๋วยเตี๋ยวเรือ — 約 60-100 銖</li>
                             <li>🍛 打拋豬飯 ผัดกระเพราหมู — 約 60-90 銖</li>
                             <li>🍝 炒河粉 Pad Thai — 約 80-150 銖</li>
                             <li>🌶️ 泰式炒飯 ข้าวผัด — 約 70-120 銖</li>
-                        </ul>
-                    </div>
-                    <div class="bg-orange-50 p-3 rounded-lg border border-orange-200 space-y-1.5">
-                        <h4 class="font-bold text-orange-800 text-sm flex items-center gap-1"><i class="fa-solid fa-fire-flame-curved text-orange-600"></i> 湯麵 / 咖哩</h4>
-                        <ul class="space-y-1 text-orange-900" id="linman-ul-soup">
                             <li>🦐 冬蔭功酸辣湯 ต้มยำกุ้ง — 約 150-250 銖</li>
                             <li>🥥 綠咖哩雞 แกงเขียวหวานไก่ — 約 120-180 銖</li>
                             <li>🟡 黃咖哩 แกงกะหรี่ — 約 100-160 銖</li>
@@ -1824,17 +1839,89 @@
             }
         }
 
+        // ── 昭披耶河 搭船路線地圖 ──────────────────────────────
+        function toggleFerryView(view) {
+            var infoView = document.getElementById('ferryInfoView');
+            var mapView  = document.getElementById('ferryMapView');
+            var infoBtn  = document.getElementById('ferryInfoBtn');
+            var mapBtn   = document.getElementById('ferryMapBtn');
+            if (view === 'map') {
+                infoView.classList.add('hidden');
+                mapView.classList.remove('hidden');
+                infoBtn.classList.remove('bg-white','text-teal-700','shadow');
+                infoBtn.classList.add('text-slate-500');
+                mapBtn.classList.add('bg-white','text-teal-700','shadow');
+                mapBtn.classList.remove('text-slate-500');
+                if (!window._ferryMapInit) initFerryMap();
+                setTimeout(function(){ if (window._ferryMap) window._ferryMap.invalidateSize(); }, 150);
+            } else {
+                mapView.classList.add('hidden');
+                infoView.classList.remove('hidden');
+                mapBtn.classList.remove('bg-white','text-teal-700','shadow');
+                mapBtn.classList.add('text-slate-500');
+                infoBtn.classList.add('bg-white','text-teal-700','shadow');
+                infoBtn.classList.remove('text-slate-500');
+            }
+        }
+
+        function initFerryMap() {
+            window._ferryMapInit = true;
+            var map = L.map('ferryRouteMap', { scrollWheelZoom: false }).setView([13.735, 100.502], 13);
+            window._ferryMap = map;
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors', maxZoom: 18
+            }).addTo(map);
+
+            // 藍旗觀光船 9 站
+            var blueStops = [
+                { name: 'N13 Phra Arthit', latlng: [13.7647, 100.4975], note: '卡歐山路 / 背包客區' },
+                { name: 'N10 Wang Lang',   latlng: [13.7558, 100.4861], note: '詩里拉吉醫院' },
+                { name: 'N9 Tha Chang',    latlng: [13.7500, 100.4916], note: '大皇宮 / 玉佛寺' },
+                { name: 'N8 Tha Tien',     latlng: [13.7472, 100.4935], note: '臥佛寺' },
+                { name: 'N6 Ratchawong',   latlng: [13.7419, 100.5005], note: '嵩越路 / 唐人街' },
+                { name: 'N5 Marine Dept',  latlng: [13.7357, 100.5040], note: '' },
+                { name: 'N3 Si Phraya',    latlng: [13.7254, 100.5164], note: 'River City' },
+                { name: 'Central (Sathorn)', latlng: [13.7205, 100.5177], note: 'BTS Saphan Taksin 轉乘' },
+                { name: 'S7 ICONSIAM',     latlng: [13.7258, 100.5108], note: '暹羅天地' }
+            ];
+            L.polyline(blueStops.map(function(s){ return s.latlng; }), {
+                color: '#2563EB', weight: 5, opacity: 0.85
+            }).addTo(map);
+            blueStops.forEach(function(stop, i) {
+                var isEnd = (i === 0 || i === blueStops.length - 1);
+                L.circleMarker(stop.latlng, {
+                    radius: isEnd ? 9 : 6,
+                    fillColor: '#2563EB', color: '#fff', weight: 2.5,
+                    opacity: 1, fillOpacity: 0.95
+                }).bindPopup('<b style="color:#1d4ed8">' + stop.name + '</b>' + (stop.note ? '<br>' + stop.note : ''), { maxWidth: 180 }).addTo(map);
+            });
+
+            // 方向標籤
+            var mkOpts = function(html, anchor){ return L.divIcon({ className:'', html: html, iconAnchor: anchor }); };
+            L.marker([13.7647, 100.4975], { icon: mkOpts('<div style="background:#2563EB;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;white-space:nowrap">↑ 北端起點</div>', [-6, 22]) }).addTo(map);
+            L.marker([13.7258, 100.5108], { icon: mkOpts('<div style="background:#2563EB;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;white-space:nowrap">↓ 南端終點</div>', [-6, -8]) }).addTo(map);
+
+            // 橙旗通勤船（廣域虛線）
+            var orangeRoute = [
+                [13.8630, 100.5148],[13.8200, 100.5050],[13.7800, 100.5000],
+                [13.7647, 100.4975],[13.7500, 100.4916],[13.7419, 100.5005],
+                [13.7205, 100.5177],[13.6950, 100.5280],[13.6710, 100.5360]
+            ];
+            L.polyline(orangeRoute, { color: '#EA580C', weight: 3, opacity: 0.65, dashArray: '8,5' }).addTo(map);
+            L.marker([13.8630, 100.5148], { icon: mkOpts('<div style="background:#EA580C;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px">Nonthaburi ↕</div>', [-4, 16]) }).addTo(map);
+            L.marker([13.6710, 100.5360], { icon: mkOpts('<div style="background:#EA580C;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px">Rat Burana ↕</div>', [-4, -8]) }).addTo(map);
+        }
+
         // ── LINE MAN 點餐清單編輯 ──────────────────────────────
         const defaultLinmanData = {
-            main:   ['🍚 海南雞飯 ข้าวมันไก่ — 約 80-120 銖','🍜 船麵 ก๋วยเตี๋ยวเรือ — 約 60-100 銖','🍛 打拋豬飯 ผัดกระเพราหมู — 約 60-90 銖','🍝 炒河粉 Pad Thai — 約 80-150 銖','🌶️ 泰式炒飯 ข้าวผัด — 約 70-120 銖'],
-            soup:   ['🦐 冬蔭功酸辣湯 ต้มยำกุ้ง — 約 150-250 銖','🥥 綠咖哩雞 แกงเขียวหวานไก่ — 約 120-180 銖','🟡 黃咖哩 แกงกะหรี่ — 約 100-160 銖','🍜 媽媽麵升級版 มาม่าต้มยำ — 約 50-80 銖','🐟 酸辣魚湯粉 — 約 80-120 銖'],
+            main:   ['🍚 海南雞飯 ข้าวมันไก่ — 約 80-120 銖','🍜 船麵 ก๋วยเตี๋ยวเรือ — 約 60-100 銖','🍛 打拋豬飯 ผัดกระเพราหมู — 約 60-90 銖','🍝 炒河粉 Pad Thai — 約 80-150 銖','🌶️ 泰式炒飯 ข้าวผัด — 約 70-120 銖','🦐 冬蔭功酸辣湯 ต้มยำกุ้ง — 約 150-250 銖','🥥 綠咖哩雞 แกงเขียวหวานไก่ — 約 120-180 銖','🟡 黃咖哩 แกงกะหรี่ — 約 100-160 銖','🍜 媽媽麵升級版 มาม่าต้มยำ — 約 50-80 銖','🐟 酸辣魚湯粉 — 約 80-120 銖'],
             drinks: ['🧋 泰式奶茶 ชาเย็น — 約 40-60 銖','🥭 芒果糯米飯 ข้าวเหนียวมะม่วง — 約 80-150 銖','🍦 芒果沙冰 / 冰淇淋 — 約 60-120 銖','🫧 手標泰奶冰飲 — 約 50-80 銖','🥤 椰子水 มะพร้าว — 約 40-70 銖']
         };
         let linmanData = JSON.parse(localStorage.getItem('linmanData') || 'null') || JSON.parse(JSON.stringify(defaultLinmanData));
         let linmanEditMode = false;
 
         function renderLinman() {
-            [['main','linman-ul-main'],['soup','linman-ul-soup'],['drinks','linman-ul-drinks']].forEach(function(pair) {
+            [['main','linman-ul-main'],['drinks','linman-ul-drinks']].forEach(function(pair) {
                 var key = pair[0], id = pair[1];
                 var ul = document.getElementById(id);
                 if (!ul) return;
