@@ -119,6 +119,9 @@
                 <button onclick="switchTab('notice')" id="tab-notice" class="py-3 px-2 transition flex items-center gap-1.5">
                     <i class="fa-solid fa-circle-info"></i> 攻略與泰文
                 </button>
+                <button onclick="switchTab('chatuchak')" id="tab-chatuchak" class="py-3 px-2 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-store"></i> 洽圖洽地圖
+                </button>
             </div>
         </nav>
     </header>
@@ -678,6 +681,105 @@
 
         </section>
 
+        <!-- TAB 6: 洽圖洽週末市場地圖 -->
+        <section id="sec-chatuchak" class="tab-content hidden space-y-4">
+            <!-- Header -->
+            <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-center justify-between shadow-sm">
+                <div>
+                    <h2 class="text-xl font-bold text-amber-800">🛍️ 洽圖洽週末市場</h2>
+                    <p class="text-amber-700 text-sm mt-0.5">Chatuchak Weekend Market — 分區導覽地圖</p>
+                </div>
+                <button id="mapZoomBtn" onclick="toggleChatuchakZoom()" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold px-3 py-2 rounded-full shadow flex items-center gap-1.5 transition">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i> 放大地圖
+                </button>
+            </div>
+
+            <!-- Map Image -->
+            <div id="chatuchakMapContainer" class="rounded-2xl overflow-auto border border-slate-200 shadow-sm bg-white" style="max-height: 62vh;">
+                <img id="chatuchakMapImg" src="./chatuchak-map.jpg" alt="洽圖洽市場地圖"
+                    class="w-full transition-all duration-300 cursor-zoom-in select-none"
+                    onclick="toggleChatuchakZoom()" />
+            </div>
+            <p class="text-center text-xs text-slate-400"><i class="fa-solid fa-hand-pointer mr-1"></i>點擊地圖放大 · 拖曳瀏覽全圖</p>
+
+            <!-- Section Guide -->
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-4">
+                <h3 class="font-bold text-slate-700 text-base mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-map-pin text-amber-500"></i> 分區逛街指南
+                </h3>
+                <div class="grid grid-cols-1 gap-2">
+
+                    <div class="flex items-center gap-3 p-3 bg-rose-50 rounded-xl border border-rose-100">
+                        <span class="shrink-0 bg-rose-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">1–4</span>
+                        <span class="text-slate-700 text-sm font-medium">👗 潮流服飾、配件</span>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-3 bg-yellow-50 rounded-xl border border-yellow-100">
+                        <span class="shrink-0 bg-yellow-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">5–6</span>
+                        <span class="text-slate-700 text-sm font-medium">🕰️ 二手衣、古著寶藏</span>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-3 bg-emerald-50 rounded-xl border border-emerald-100">
+                        <span class="shrink-0 bg-emerald-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">7–9</span>
+                        <span class="text-slate-700 text-sm font-medium">🏮 家居飾品、手工藝品</span>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-3 bg-sky-50 rounded-xl border border-sky-100">
+                        <span class="shrink-0 bg-sky-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">10–12</span>
+                        <span class="text-slate-700 text-sm font-medium">🐾 寵物 &amp; 寵物用品</span>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-3 bg-orange-50 rounded-xl border border-orange-100">
+                        <span class="shrink-0 bg-orange-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">13–15</span>
+                        <span class="text-slate-700 text-sm font-medium">🍜 陶瓷、餐具、廚房小物</span>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-3 bg-violet-50 rounded-xl border border-violet-100">
+                        <span class="shrink-0 bg-violet-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">16–19</span>
+                        <span class="text-slate-700 text-sm font-medium">🎨 藝術品、畫作</span>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-3 bg-green-50 rounded-xl border border-green-100">
+                        <span class="shrink-0 bg-green-600 text-white text-xs font-bold px-2.5 py-1 rounded-full">20–22</span>
+                        <span class="text-slate-700 text-sm font-medium">🌿 綠植、盆栽、園藝</span>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200">
+                        <span class="shrink-0 bg-slate-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">23–24</span>
+                        <span class="text-slate-700 text-sm font-medium">💍 銀飾、水晶手鍊</span>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-3 bg-indigo-50 rounded-xl border border-indigo-200 ring-1 ring-indigo-300">
+                        <span class="shrink-0 bg-indigo-600 text-white text-xs font-bold px-2.5 py-1 rounded-full">25–26</span>
+                        <div>
+                            <span class="text-slate-700 text-sm font-medium">🔮 水晶、礦石、佛珠材料</span>
+                            <p class="text-indigo-600 text-xs font-semibold mt-0.5">✨ 買材料、串佛珠首選！</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-3 bg-amber-50 rounded-xl border border-amber-100">
+                        <span class="shrink-0 bg-amber-600 text-white text-xs font-bold px-2.5 py-1 rounded-full">27</span>
+                        <span class="text-slate-700 text-sm font-medium">🪑 家具、家居設計品</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Tips -->
+            <div class="bg-teal-50 border border-teal-200 rounded-2xl p-4">
+                <h3 class="font-bold text-teal-800 text-sm mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-lightbulb text-teal-500"></i> 逛市場小提醒
+                </h3>
+                <ul class="space-y-1.5 text-sm text-teal-700">
+                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-teal-400 mt-0.5 shrink-0"></i><span>開放時間：週六、日 09:00–18:00</span></li>
+                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-teal-400 mt-0.5 shrink-0"></i><span>MRT Chatuchak Park 站 出口 1 / BTS Mo Chit 站</span></li>
+                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-teal-400 mt-0.5 shrink-0"></i><span>市場大、人多，建議早上開市就去、避開中午日曬</span></li>
+                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-teal-400 mt-0.5 shrink-0"></i><span>攤販大多接受現金（泰銖），少數可刷卡，記得帶錢</span></li>
+                    <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-teal-400 mt-0.5 shrink-0"></i><span>殺價文化普遍，買多件可開口議價 😊</span></li>
+                </ul>
+            </div>
+        </section>
+
     </main>
 
     <!-- Modal for Spot -->
@@ -1075,6 +1177,25 @@
             renderThaiPhrases();
             renderLinman();
             renderMuvmiInfo();
+        }
+
+        let chatuchakZoomed = false;
+        function toggleChatuchakZoom() {
+            const img = document.getElementById('chatuchakMapImg');
+            const container = document.getElementById('chatuchakMapContainer');
+            const btn = document.getElementById('mapZoomBtn');
+            chatuchakZoomed = !chatuchakZoomed;
+            if (chatuchakZoomed) {
+                img.style.width = '960px';
+                img.classList.replace('cursor-zoom-in', 'cursor-zoom-out');
+                container.style.maxHeight = '80vh';
+                btn.innerHTML = '<i class="fa-solid fa-magnifying-glass-minus"></i> 縮小地圖';
+            } else {
+                img.style.width = '100%';
+                img.classList.replace('cursor-zoom-out', 'cursor-zoom-in');
+                container.style.maxHeight = '62vh';
+                btn.innerHTML = '<i class="fa-solid fa-magnifying-glass-plus"></i> 放大地圖';
+            }
         }
 
         function switchTab(tabId) {
