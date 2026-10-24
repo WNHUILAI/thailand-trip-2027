@@ -43,6 +43,10 @@
             justify-content: center;
             box-shadow: 0 2px 6px rgba(0,0,0,0.3);
         }
+        .custom-num-marker-multi {
+            border-radius: 12px;
+            font-size: 11px;
+        }
 
         .doodle-bg {
             background-image: radial-gradient(#0d9488 0.75px, transparent 0.75px), radial-gradient(#0d9488 0.75px, #f8faf9 0.75px);
@@ -74,12 +78,15 @@
         .day-node.active .day-node-label .day-date { color: #5eead4; }
         .day-moving-icon {
             position: absolute; top: 1px;
-            transform: translateX(-50%);
             font-size: 21px; z-index: 10; pointer-events: none;
-            line-height: 1; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.25));
-            transition: left 0.85s cubic-bezier(0.65, 0, 0.35, 1); /* overridden by JS per distance */
+            line-height: 1;
+            will-change: transform;
         }
-        .day-moving-icon .icon-inner { display: inline-block; transition: transform 0.3s ease; }
+        .day-moving-icon .icon-inner {
+            display: inline-block;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.22));
+            transition: transform 0.3s ease;
+        }
     </style>
 </head>
 <body class="text-slate-800 pb-20">
@@ -1116,7 +1123,35 @@
         };
 
         let travelData = JSON.parse(JSON.stringify(defaultTravelData));
-        let currentDayIndex = 0;
+
+        // 回傳「現在時間」，若 URL 帶有 ?testDate=2027-01-17T14:00 則使用該時間（方便測試）
+        function getNow() {
+            const params = new URLSearchParams(window.location.search);
+            const testDate = params.get('testDate');
+            return testDate ? new Date(testDate) : new Date();
+        }
+
+        function getInitialDayIndex() {
+            const now = getNow();
+            const todayYear = now.getFullYear();
+            const todayMonth = now.getMonth() + 1;
+            const todayDay = now.getDate();
+            const days = defaultTravelData.days || [];
+            for (let i = 0; i < days.length; i++) {
+                const match = (days[i].dateStr || '').match(/^(\d+)\/(\d+)/);
+                if (match) {
+                    const m = parseInt(match[1]);
+                    const d = parseInt(match[2]);
+                    if (todayYear === 2027 && todayMonth === m && todayDay === d) {
+                        return i;
+                    }
+                }
+            }
+            return 0;
+        }
+
+        let currentDayIndex = getInitialDayIndex();
+        let hasAutoScrolled = false;
         let isEditMode = false;
         let dayMapInstance = null;
         let dayMapMarkers = [];
@@ -1182,6 +1217,10 @@
                     if (data && Object.keys(data).length > 0) {
                         travelData = data;
                         renderAllUI();
+                        if (!hasAutoScrolled) {
+                            hasAutoScrolled = true;
+                            setTimeout(scrollToCurrentSpot, 600);
+                        }
                     }
                 } else {
                     console.log("雲端尚未有資料，正在初始化預設資料...");
@@ -1201,6 +1240,43 @@
         }
 
         // 5. UI 渲染方法
+        function scrollToCurrentSpot() {
+            if (!travelData.days || !travelData.days[currentDayIndex]) return;
+            const now = getNow();
+            const nowMin = now.getHours() * 60 + now.getMinutes();
+            const spots = travelData.days[currentDayIndex].spots || [];
+            let targetIdx = -1;
+
+            for (let i = 0; i < spots.length; i++) {
+                const t = spots[i].time || '';
+                // 格式：HH:MM - HH:MM
+                const rangeMatch = t.match(/^(\d{1,2}):(\d{2})\s*[-~–]\s*(\d{1,2}):(\d{2})/);
+                if (rangeMatch) {
+                    const start = parseInt(rangeMatch[1]) * 60 + parseInt(rangeMatch[2]);
+                    const end   = parseInt(rangeMatch[3]) * 60 + parseInt(rangeMatch[4]);
+                    if (nowMin >= start && nowMin < end) { targetIdx = i; break; }
+                    if (nowMin >= start) targetIdx = i;
+                    continue;
+                }
+                // 格式：HH:MM（單一時間）
+                const singleMatch = t.match(/^(\d{1,2}):(\d{2})/);
+                if (singleMatch) {
+                    const start = parseInt(singleMatch[1]) * 60 + parseInt(singleMatch[2]);
+                    if (nowMin >= start) targetIdx = i;
+                }
+            }
+
+            if (targetIdx < 0) return;
+            const el = document.getElementById(`spotCard_${currentDayIndex}_${targetIdx}`);
+            if (!el) return;
+            setTimeout(() => {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                el.style.transition = 'box-shadow 0.3s';
+                el.style.boxShadow = '0 0 0 3px #0d9488';
+                setTimeout(() => { el.style.boxShadow = ''; }, 2500);
+            }, 400);
+        }
+
         function renderAllUI() {
             renderDayButtons();
             renderItinerary();
@@ -1283,13 +1359,18 @@ function switchTab(tabId) {
             const prevPct = prevIcon ? parseFloat(prevIcon.dataset.pct) : null;
             const goingRight = prevPct === null || targetPct >= prevPct;
 
-            // Rebuild DOM (icon starts at prevPct to enable CSS transition)
-            const startPct = prevPct !== null ? prevPct : targetPct;
+            // Pre-calculate start offset in px (for transform-based animation, no left transition)
+            const containerWidth = container.offsetWidth || 300;
+            const startOffsetPx = (prevPct !== null && prevPct !== targetPct)
+                ? (prevPct - targetPct) / 100 * containerWidth : 0;
+
+            // left is fixed at final position; transform carries the start offset
             container.innerHTML = `
                 <div class="day-timeline-wrap">
                     <div class="day-timeline-track"></div>
                     <div class="day-timeline-nodes" id="dayTimelineNodes"></div>
-                    <div class="day-moving-icon" id="cableCarIcon" data-pct="${targetPct}" style="left:${startPct}%">
+                    <div class="day-moving-icon" id="cableCarIcon" data-pct="${targetPct}"
+                         style="left:${targetPct}%; transform:translateX(calc(-50% + ${startOffsetPx.toFixed(1)}px))">
                         <span class="icon-inner" style="transform:scaleX(${goingRight ? -1 : 1})">🛺</span>
                     </div>
                 </div>`;
@@ -1312,16 +1393,14 @@ function switchTab(tabId) {
                 nodesEl.appendChild(node);
             });
 
-            // Animate icon to target — duration scales with distance so speed feels constant
+            // Animate via transform (GPU-accelerated — no compositing artifacts)
             if (prevPct !== null && prevPct !== targetPct) {
                 const icon = document.getElementById('cableCarIcon');
                 const distance = Math.abs(targetPct - prevPct);
                 const duration = Math.max(0.55, (distance / 100) * 3.2);
-                icon.style.transition = 'none';
-                icon.style.left = prevPct + '%';
-                icon.offsetWidth; // force reflow
-                icon.style.transition = `left ${duration.toFixed(2)}s cubic-bezier(0.65, 0, 0.35, 1)`;
-                icon.style.left = targetPct + '%';
+                icon.offsetWidth; // force reflow so start transform is registered
+                icon.style.transition = `transform ${duration.toFixed(2)}s cubic-bezier(0.65, 0, 0.35, 1)`;
+                icon.style.transform = 'translateX(-50%)'; // slide to final centered position
             }
         }
 
@@ -1381,6 +1460,7 @@ function switchTab(tabId) {
 
                 const accordionId = `acc_${currentDayIndex}_${idx}`;
                 const spotCard = document.createElement('div');
+                spotCard.id = `spotCard_${currentDayIndex}_${idx}`;
                 spotCard.className = `bg-white p-4 rounded-xl shadow-sm border border-slate-200 transition ${isEditMode ? 'border-teal-400' : ''}`;
                 
                 spotCard.innerHTML = `
@@ -1474,34 +1554,56 @@ function switchTab(tabId) {
             const bounds = [];
             const pathLatLngs = [];
 
+            // Group spots by coordinate to handle duplicate locations
+            const locationGroups = new Map();
             (currentSpots || []).forEach((spot, i) => {
                 if (spot.lat && spot.lng) {
-                    const latLng = [spot.lat, spot.lng];
-                    bounds.push(latLng);
-                    pathLatLngs.push(latLng);
-
-                    const numIcon = L.divIcon({
-                        className: 'custom-num-marker',
-                        html: `<span>${i + 1}</span>`,
-                        iconSize: [24, 24],
-                        iconAnchor: [12, 12]
-                    });
-
-                    const marker = L.marker(latLng, { icon: numIcon }).addTo(dayMapInstance);
-                    marker.bindPopup(`
-                        <div class="text-xs">
-                            <div class="flex items-center gap-1 mb-1">
-                                <span class="bg-rose-600 text-white font-bold px-1.5 rounded-full text-[10px]">${i+1}</span>
-                                <h4 class="font-bold text-sm">${spot.name}</h4>
-                            </div>
-                            <p class="text-slate-500 mb-1">${spot.location}</p>
-                            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.location)}" target="_blank" class="bg-teal-600 text-white px-2 py-1 rounded font-bold text-[11px] inline-flex items-center gap-1">
-                                <i class="fa-solid fa-location-arrow"></i> 開啟 Google Maps 導航
-                            </a>
-                        </div>
-                    `);
-                    dayMapMarkers.push(marker);
+                    const key = `${spot.lat},${spot.lng}`;
+                    if (!locationGroups.has(key)) locationGroups.set(key, []);
+                    locationGroups.get(key).push({ spot, index: i });
                 }
+            });
+
+            // Build polyline path (all spots in order, including revisits)
+            const seenBounds = new Set();
+            (currentSpots || []).forEach((spot) => {
+                if (spot.lat && spot.lng) {
+                    const latLng = [spot.lat, spot.lng];
+                    pathLatLngs.push(latLng);
+                    const key = `${spot.lat},${spot.lng}`;
+                    if (!seenBounds.has(key)) { bounds.push(latLng); seenBounds.add(key); }
+                }
+            });
+
+            // Create one marker per unique location; show all numbers if duplicates exist
+            locationGroups.forEach((entries) => {
+                const latLng = [entries[0].spot.lat, entries[0].spot.lng];
+                const numbers = entries.map(e => e.index + 1);
+                const isMulti = numbers.length > 1;
+                const labelText = numbers.join('·');
+                const iconWidth = isMulti ? Math.max(32, numbers.length * 14 + 8) : 24;
+
+                const numIcon = L.divIcon({
+                    className: isMulti ? 'custom-num-marker custom-num-marker-multi' : 'custom-num-marker',
+                    html: `<span>${labelText}</span>`,
+                    iconSize: [iconWidth, 24],
+                    iconAnchor: [iconWidth / 2, 12]
+                });
+
+                const popupContent = entries.map(({ spot, index }) => `
+                    <div class="flex items-center gap-1 mb-1">
+                        <span class="bg-rose-600 text-white font-bold px-1.5 rounded-full text-[10px]">${index + 1}</span>
+                        <h4 class="font-bold text-sm">${spot.name}</h4>
+                    </div>
+                    <p class="text-slate-500 mb-1">${spot.location}</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.location)}" target="_blank" class="bg-teal-600 text-white px-2 py-1 rounded font-bold text-[11px] inline-flex items-center gap-1">
+                        <i class="fa-solid fa-location-arrow"></i> 開啟 Google Maps 導航
+                    </a>
+                `).join('<hr class="my-1.5 border-slate-200">');
+
+                const marker = L.marker(latLng, { icon: numIcon }).addTo(dayMapInstance);
+                marker.bindPopup(`<div class="text-xs">${popupContent}</div>`);
+                dayMapMarkers.push(marker);
             });
 
             if (pathLatLngs.length > 1) {
